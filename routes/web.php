@@ -12,6 +12,8 @@ use App\Http\Controllers\PublicTravelerProfileController;
 use App\Http\Controllers\PublicProfileSettingsController;
 use App\Http\Controllers\InterestController;
 use App\Http\Controllers\PlacePhotoController;
+use App\Http\Controllers\ContentReportController;
+use App\Http\Controllers\Admin\ModerationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -23,12 +25,22 @@ Route::get('/viajeros/{publicProfileId}',[PublicTravelerProfileController::class
 Route::get('/fotos/{publicId}',[PlacePhotoController::class,'show'])->name('photos.show');
 Route::post('/visita/qr/{publicId}/{secret}',[QrCheckInController::class,'confirm'])->middleware(['auth','verified','throttle:5,1'])->name('qr.confirm');
 Route::post('/lugares/{place}/fotos',[PlacePhotoController::class,'store'])->middleware(['auth','verified','throttle:3,1'])->name('photos.store');
+Route::post('/resenas/{review}/reportar',[ContentReportController::class,'review'])->middleware(['auth','verified','throttle:5,1'])->name('reports.reviews.store');
+Route::post('/fotos/{photo}/reportar',[ContentReportController::class,'photo'])->middleware(['auth','verified','throttle:5,1'])->name('reports.photos.store');
 
 Route::middleware('guest')->group(function () {
     Route::get('/registro', [AuthController::class, 'register'])->name('register');
     Route::post('/registro', [AuthController::class, 'store']);
     Route::get('/ingresar', [AuthController::class, 'login'])->name('login');
     Route::post('/ingresar', [AuthController::class, 'authenticate']);
+});
+
+Route::prefix('administracion')->name('admin.')->middleware(['auth','verified','admin'])->group(function(){
+    Route::get('/moderacion',[ModerationController::class,'index'])->name('moderation.index');
+    Route::get('/moderacion/fotos/{photo}/vista',[ModerationController::class,'photoPreview'])->name('moderation.photos.preview');
+    Route::put('/moderacion/fotos/{photo}',[ModerationController::class,'photo'])->name('moderation.photos.update');
+    Route::put('/moderacion/visitas/{checkIn}',[ModerationController::class,'checkIn'])->name('moderation.checkins.update');
+    Route::put('/moderacion/denuncias/{report}',[ModerationController::class,'report'])->name('moderation.reports.update');
 });
 
 Route::middleware('auth')->group(function () {
