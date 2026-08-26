@@ -64,4 +64,15 @@ class AuthenticationTest extends TestCase
 
         $this->actingAs($user)->get('/mi-perfil')->assertRedirect(route('verification.notice'));
     }
+
+    public function test_local_environment_offers_a_safe_development_verification_link(): void
+    {
+        $this->app->detectEnvironment(fn () => 'local');
+        $user = User::factory()->unverified()->create();
+
+        $this->actingAs($user)
+            ->get('/verificar-correo')
+            ->assertOk()
+            ->assertSee('Verificar correo en desarrollo');
+    }
 }
