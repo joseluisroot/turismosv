@@ -1,5 +1,14 @@
 # TurismoSV
 
+## Acceso con Google y Facebook
+
+La aplicación usa Laravel Socialite y nunca almacena contraseñas ni tokens externos. Configura en `.env` las variables `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `FACEBOOK_CLIENT_ID` y `FACEBOOK_CLIENT_SECRET`. En cada consola registra exactamente estas rutas de retorno usando el mismo dominio y protocolo de `APP_URL`:
+
+- `/acceso/google/callback`
+- `/acceso/facebook/callback`
+
+En producción, `APP_URL` y las rutas autorizadas deben utilizar HTTPS. Si no hay credenciales, los botones permanecen visibles pero muestran un aviso seguro y no intentan contactar al proveedor.
+
 Plataforma comunitaria para descubrir El Salvador mediante un catálogo confiable,
 reseñas, visitas verificadas y un pasaporte turístico digital.
 
