@@ -65,5 +65,9 @@ Después de verificar el correo, el viajero puede elegir hasta seis intereses. L
 
 ## Estado de esta primera entrega
 
+### Fotografías comunitarias
+
+Las fotografías se almacenan de forma privada al recibirse y solo una decisión de moderación permite servirlas públicamente. Cada envío conserva autor, consentimiento, versión de licencia, estado y nota interna. En el servidor se pueden revisar con `php artisan turismosv:photo-moderate {id} approve|reject --note="..."`.
+
 Los lugares, métricas y calificaciones cargados inicialmente son datos de demostración. No deben
 publicarse como información real hasta completar el proceso editorial y documentar sus fuentes.

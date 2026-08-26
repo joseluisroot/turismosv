@@ -11,6 +11,7 @@ use App\Http\Controllers\AchievementCardController;
 use App\Http\Controllers\PublicTravelerProfileController;
 use App\Http\Controllers\PublicProfileSettingsController;
 use App\Http\Controllers\InterestController;
+use App\Http\Controllers\PlacePhotoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -19,7 +20,9 @@ Route::post('/lugares/{place}/resenas', [ReviewController::class, 'store'])->mid
 Route::post('/lugares/{place}/check-in', [CheckInController::class, 'store'])->middleware(['auth','verified','throttle:5,1'])->name('checkins.store');
 Route::get('/visita/qr/{publicId}/{secret}',[QrCheckInController::class,'show'])->name('qr.show');
 Route::get('/viajeros/{publicProfileId}',[PublicTravelerProfileController::class,'show'])->name('travelers.public');
+Route::get('/fotos/{publicId}',[PlacePhotoController::class,'show'])->name('photos.show');
 Route::post('/visita/qr/{publicId}/{secret}',[QrCheckInController::class,'confirm'])->middleware(['auth','verified','throttle:5,1'])->name('qr.confirm');
+Route::post('/lugares/{place}/fotos',[PlacePhotoController::class,'store'])->middleware(['auth','verified','throttle:3,1'])->name('photos.store');
 
 Route::middleware('guest')->group(function () {
     Route::get('/registro', [AuthController::class, 'register'])->name('register');
