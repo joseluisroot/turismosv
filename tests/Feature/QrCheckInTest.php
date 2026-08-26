@@ -14,10 +14,10 @@ class QrCheckInTest extends TestCase {
         $this->seed();$user=User::factory()->create();$place=Place::first();$code=$this->codeFor($place);$before=$place->verified_visits_count;
         Review::create(['user_id'=>$user->id,'place_id'=>$place->id,'rating'=>5,'title'=>'Gran experiencia','body'=>'Una experiencia suficientemente detallada para esta prueba comunitaria.','status'=>'published']);
         $url=route('qr.confirm',['publicId'=>$code->public_id,'secret'=>'physical-secret']);
-        $this->actingAs($user)->post($url)->assertRedirect(route('places.show',$place));
+        $this->actingAs($user)->post($url)->assertRedirect(route('passport.show'));
         $this->assertDatabaseHas('check_ins',['user_id'=>$user->id,'place_id'=>$place->id,'status'=>'verified','evidence_method'=>'qr']);
         $this->assertTrue(Review::first()->is_visit_verified);$this->assertSame($before+1,$place->fresh()->verified_visits_count);
-        $this->post($url)->assertRedirect();$this->assertSame($before+1,$place->fresh()->verified_visits_count);$this->assertSame(1,CheckIn::count());
+        $this->post($url)->assertRedirect();$this->assertSame($before+1,$place->fresh()->verified_visits_count);$this->assertSame(1,CheckIn::count());$this->assertDatabaseCount('passport_stamps',1);
     }
     public function test_invalid_or_expired_qr_is_rejected(): void {
         $this->seed();$place=Place::first();$code=$this->codeFor($place);
