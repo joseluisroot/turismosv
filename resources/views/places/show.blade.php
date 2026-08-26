@@ -16,17 +16,34 @@
         <div class="place-detail-copy">
             <p class="eyebrow">{{ $place->municipality }} · {{ $place->department->name }}</p>
             <h1>{{ $place->name }}</h1><p class="place-lead">{{ $place->summary }}</p>
-            <div class="detail-rating"><strong>★ {{ $place->rating_average }}</strong><span>{{ $place->reviews_count }} reseñas</span><span>{{ $place->verified_visits_count }} visitas confirmadas</span></div>
+            <div class="detail-rating"><strong>★ {{ $place->rating_average }}</strong><span>{{ $place->reviews_count }} {{ $place->reviews_count === 1 ? 'reseña' : 'reseñas' }}</span><span>{{ $place->verified_visits_count }} visitas confirmadas</span></div>
             @if($place->verification_status === 'verified')<div class="detail-trust verified">✓ Verificado por TurismoSV</div>@elseif($place->verification_status === 'community_confirmed')<div class="detail-trust">✓ Confirmado por la comunidad</div>@else<div class="detail-trust pending">○ Información en validación</div>@endif
-            <div class="detail-actions">@auth<button class="primary-button" type="button" disabled>Registrar visita · Próximamente</button>@else<a class="primary-button" href="{{ route('login') }}">Ingresa para registrar tu visita</a>@endauth<a class="ghost-button" href="#informacion">Ver información</a></div>
+            <div class="detail-actions">@auth<a class="primary-button" href="#check-in">Registrar mi visita</a>@else<a class="primary-button" href="{{ route('login') }}">Ingresa para registrar tu visita</a>@endauth<a class="ghost-button" href="#informacion">Ver información</a></div>
         </div>
     </section>
     <section class="place-info-grid" id="informacion">
         <article><p class="eyebrow">Información esencial</p><h2>Planifica tu visita</h2><dl><div><dt>Categoría</dt><dd>{{ $place->category->name }}</dd></div><div><dt>Municipio</dt><dd>{{ $place->municipality }}</dd></div><div><dt>Departamento</dt><dd>{{ $place->department->name }}</dd></div><div><dt>Actualización</dt><dd>{{ $place->updated_at->translatedFormat('d M Y') }}</dd></div></dl><p class="data-notice">Horarios, precios, coordenadas y accesibilidad se incorporarán después de confirmar sus fuentes.</p></article>
         <aside><p class="eyebrow light">Cómo leer esta ficha</p><h2>Confianza con contexto.</h2><p>El nivel mostrado describe el respaldo disponible para esta información; no representa una certificación gubernamental.</p><div class="trust-meter"><span style="width:{{ $place->verification_score }}%"></span></div><small>{{ $place->verification_score }} de 100 puntos de respaldo editorial y comunitario.</small><a href="{{ route('home') }}#confianza">Conoce cómo verificamos →</a></aside>
     </section>
+    <section class="checkin-section" id="check-in">
+        <div><p class="eyebrow">Visitas con respaldo</p><h2>Registra tu paso por {{ $place->name }}</h2><p>Una declaración inicia el proceso, pero no se convierte en visita verificada hasta que exista evidencia aprobada. Más adelante podrás usar ubicación consentida, QR del lugar o revisión manual.</p><ul><li>La ubicación nunca será pública por defecto.</li><li>Una visita pendiente no entrega sellos ni puntos.</li><li>Los intentos duplicados o falsos pueden ser rechazados.</li></ul></div>
+        <aside class="checkin-card">
+            @if(session('checkin_status'))<div class="status-message">{{ session('checkin_status') }}</div>@endif
+            @auth
+                @if(auth()->user()->hasVerifiedEmail())
+                    @if($userCheckIn)<div class="checkin-current"><span class="status-{{ $userCheckIn->status }}">{{ match($userCheckIn->status){'verified'=>'✓ Verificada','rejected'=>'× Rechazada',default=>'○ Pendiente'} }}</span><strong>Última visita: {{ $userCheckIn->visited_on->translatedFormat('d M Y') }}</strong><small>Método actual: declaración personal.</small></div>@endif
+                    <form method="post" action="{{ route('checkins.store',$place) }}" class="checkin-form">@csrf
+                        <label>Fecha de visita<input type="date" name="visited_on" min="{{ now()->subDays(30)->toDateString() }}" max="{{ now()->toDateString() }}" value="{{ old('visited_on',now()->toDateString()) }}" required>@error('visited_on')<small>{{ $message }}</small>@enderror</label>
+                        <label>Nota privada para revisión <span>(opcional)</span><textarea name="note" rows="3" maxlength="500" placeholder="Por ejemplo: actividad realizada o referencia útil para confirmar la visita.">{{ old('note') }}</textarea>@error('note')<small>{{ $message }}</small>@enderror</label>
+                        <label class="legal-check"><input type="checkbox" name="verification_consent" value="1" required><span>Declaro que realicé esta visita y acepto las <a href="{{ route('legal.terms') }}#verificacion-visitas" target="_blank" rel="noopener">reglas de verificación de visitas</a>.</span></label>@error('verification_consent')<small>{{ $message }}</small>@enderror
+                        <button class="primary-button" type="submit">Solicitar verificación</button>
+                    </form>
+                @else<a class="primary-button" href="{{ route('verification.notice') }}">Verifica tu correo primero</a>@endif
+            @else<p>Necesitas una cuenta verificada para registrar una visita.</p><a class="primary-button" href="{{ route('login') }}">Ingresar</a>@endauth
+        </aside>
+    </section>
     <section class="reviews-section" id="resenas">
-        <div class="reviews-heading"><div><p class="eyebrow">Experiencias de la comunidad</p><h2>Reseñas y calificaciones</h2></div><div class="reviews-score"><strong>{{ $place->rating_average ? '★ '.$place->rating_average : 'Sin nota' }}</strong><span>{{ $place->reviews_count }} reseñas publicadas</span></div></div>
+        <div class="reviews-heading"><div><p class="eyebrow">Experiencias de la comunidad</p><h2>Reseñas y calificaciones</h2></div><div class="reviews-score"><strong>{{ $place->rating_average ? '★ '.$place->rating_average : 'Sin nota' }}</strong><span>{{ $place->reviews_count }} {{ $place->reviews_count === 1 ? 'reseña publicada' : 'reseñas publicadas' }}</span></div></div>
         @if(session('review_status'))<div class="status-message">{{ session('review_status') }}</div>@endif
         <div class="reviews-layout">
             <div class="reviews-list">

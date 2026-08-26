@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Place;
 use App\Models\Review;
+use App\Models\CheckIn;
 use Illuminate\Contracts\View\View;
 
 class PlaceController extends Controller
@@ -14,6 +15,9 @@ class PlaceController extends Controller
 
         $userReview = auth()->check()
             ? Review::query()->whereBelongsTo(auth()->user())->whereBelongsTo($place)->first()
+            : null;
+        $userCheckIn = auth()->check()
+            ? CheckIn::query()->whereBelongsTo(auth()->user())->whereBelongsTo($place)->latest('visited_on')->first()
             : null;
 
         $relatedPlaces = Place::query()
@@ -27,6 +31,6 @@ class PlaceController extends Controller
             ->take(3)
             ->get();
 
-        return view('places.show', compact('place', 'relatedPlaces', 'userReview'));
+        return view('places.show', compact('place', 'relatedPlaces', 'userReview', 'userCheckIn'));
     }
 }
