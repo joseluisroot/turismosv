@@ -26,4 +26,11 @@ class ReviewTest extends TestCase {
         $this->seed(); $user=User::factory()->create(); $place=Place::first();
         $this->actingAs($user)->post(route('reviews.store',$place),['rating'=>5,'title'=>'Bien','body'=>'Muy corto'])->assertSessionHasErrors(['body','community_rules']);
     }
+    public function test_review_button_starts_disabled_and_links_to_community_terms(): void {
+        $this->seed(); $user=User::factory()->create(); $place=Place::first();
+        $this->actingAs($user)->get(route('places.show',$place))
+            ->assertOk()->assertSee('data-review-submit disabled',false)
+            ->assertSee(route('legal.terms').'#contenido-comunitario',false)
+            ->assertSee('normas de la comunidad y condiciones aplicables');
+    }
 }

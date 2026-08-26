@@ -40,13 +40,13 @@
                 @auth
                     @if(auth()->user()->hasVerifiedEmail())
                         <p class="eyebrow">{{ $userReview ? 'Actualiza tu aporte' : 'Comparte tu experiencia' }}</p><h3>{{ $userReview ? 'Tu reseña de '.$place->name : '¿Cómo fue tu visita?' }}</h3>
-                        <form method="post" action="{{ route('reviews.store',$place) }}" class="review-form">@csrf
+                        <form method="post" action="{{ route('reviews.store',$place) }}" class="review-form" data-review-form>@csrf
                             <label>Calificación<select name="rating" required><option value="">Selecciona</option>@for($rating=5;$rating>=1;$rating--)<option value="{{ $rating }}" @selected(old('rating',$userReview?->rating)==$rating)>{{ str_repeat('★',$rating) }} · {{ $rating }}</option>@endfor</select>@error('rating')<small>{{ $message }}</small>@enderror</label>
                             <label>Título<input name="title" maxlength="120" value="{{ old('title',$userReview?->title) }}" placeholder="Resume tu experiencia" required>@error('title')<small>{{ $message }}</small>@enderror</label>
                             <label>Cuéntanos más<textarea name="body" rows="5" maxlength="2000" placeholder="Servicio, ambiente, recomendaciones y detalles útiles…" required>{{ old('body',$userReview?->body) }}</textarea>@error('body')<small>{{ $message }}</small>@enderror</label>
                             <label>Fecha de visita <span>(opcional)</span><input type="date" name="visited_at" max="{{ now()->toDateString() }}" value="{{ old('visited_at',$userReview?->visited_at?->toDateString()) }}">@error('visited_at')<small>{{ $message }}</small>@enderror</label>
-                            <label class="legal-check"><input type="checkbox" name="community_rules" value="1" required><span>Confirmo que esta reseña refleja mi experiencia honesta y cumple las normas de la comunidad.</span></label>@error('community_rules')<small>{{ $message }}</small>@enderror
-                            <button class="primary-button" type="submit">{{ $userReview ? 'Actualizar reseña' : 'Publicar reseña' }}</button>
+                            <label class="legal-check"><input type="checkbox" name="community_rules" value="1" data-review-confirmation required @checked(old('community_rules'))><span>Confirmo que esta reseña refleja mi experiencia honesta y cumple las <a href="{{ route('legal.terms') }}#contenido-comunitario" target="_blank" rel="noopener">normas de la comunidad y condiciones aplicables</a>.</span></label>@error('community_rules')<small>{{ $message }}</small>@enderror
+                            <button class="primary-button" type="submit" data-review-submit @disabled(!old('community_rules'))>{{ $userReview ? 'Actualizar reseña' : 'Publicar reseña' }}</button>
                         </form>
                     @else<p class="eyebrow">Protegemos la confianza</p><h3>Verifica tu correo para publicar.</h3><a class="primary-button" href="{{ route('verification.notice') }}">Verificar correo</a>@endif
                 @else<p class="eyebrow">Participa</p><h3>Ingresa para escribir una reseña.</h3><p>Las cuentas verificadas ayudan a reducir contenido falso.</p><a class="primary-button" href="{{ route('login') }}">Ingresar</a>@endauth
