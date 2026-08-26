@@ -13,6 +13,7 @@ class PlaceController extends Controller
 {
     public function show(Place $place): View
     {
+        abort_unless($place->publication_status==='published'||auth()->user()?->role==='admin',404);
         $place->load(['category', 'department','photos'=>fn($query)=>$query->with('user:id,name')->where('status','approved')->latest('moderated_at')->limit(12), 'reviews' => fn ($query) => $query->with('user:id,name')->where('status', 'published')->latest()->limit(20)]);
 
         $userReview = auth()->check()
@@ -27,6 +28,7 @@ class PlaceController extends Controller
         $relatedPlaces = Place::query()
             ->with(['category', 'department'])
             ->whereKeyNot($place->id)
+            ->where('publication_status','published')
             ->where(function ($query) use ($place) {
                 $query->where('category_id', $place->category_id)
                     ->orWhere('department_id', $place->department_id);

@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 class CheckInController extends Controller {
     public function store(Request $request, Place $place): RedirectResponse {
+        abort_unless($place->publication_status==='published',404);
         $validated=$request->validate([
             'visited_on'=>['required','date','before_or_equal:today','after_or_equal:'.now()->subDays(30)->toDateString()],
             'note'=>['nullable','string','max:500'], 'verification_consent'=>['accepted'],
