@@ -140,7 +140,7 @@
     <footer>
         <a class="brand footer-brand" href="{{ route('home') }}" aria-label="TurismoSV, inicio"><img src="{{ asset('brand/isotipo-turismosv.svg') }}" alt=""><span>Turismo<span>SV</span></span></a>
         <p>Un catálogo vivo para descubrir El Salvador con confianza.</p>
-        <nav aria-label="Información legal"><a href="{{ route('legal.privacy') }}">Privacidad</a><a href="{{ route('legal.terms') }}">Términos</a><a href="#">Cookies</a><a href="#">Normas de la comunidad</a></nav>
+        <nav aria-label="Información legal"><a href="{{ route('legal.privacy') }}">Privacidad</a><a href="{{ route('legal.terms') }}">Términos</a><a href="{{ route('legal.cookies') }}">Cookies</a><a href="{{ route('legal.community') }}">Normas de la comunidad</a><a href="{{ route('legal.notice') }}">Aviso legal</a></nav>
     </footer>
 </body>
 </html>

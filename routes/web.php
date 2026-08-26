@@ -96,3 +96,6 @@ Route::middleware('auth')->group(function () {
 
 Route::view('/terminos', 'legal.terms')->name('legal.terms');
 Route::view('/privacidad', 'legal.privacy')->name('legal.privacy');
+Route::view('/cookies','legal.cookies')->name('legal.cookies');
+Route::view('/normas-comunidad','legal.community')->name('legal.community');
+Route::view('/aviso-legal','legal.notice')->name('legal.notice');
