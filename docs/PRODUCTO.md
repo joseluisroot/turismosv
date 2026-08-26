@@ -85,5 +85,9 @@ Los administradores crean lugares inicialmente como borradores, gestionan catego
 
 La búsqueda pública consulta nombre, municipio y departamento. Los filtros de categoría, territorio, verificación y calificación se combinan y pueden ordenarse por relevancia, calificación, visitas verificadas o publicación reciente. Borradores y archivos quedan excluidos en todos los casos.
 
+### Rankings turísticos
+
+El índice público combina 50% de calificación ajustada por volumen, 25% de respaldo, 15% de visitas verificadas en escala logarítmica y 10% de confianza por cantidad de reseñas. Se calcula para el catálogo general y por categoría; no incluye borradores o archivos y ningún patrocinio puede modificar la posición.
+
 Los lugares, métricas y calificaciones cargados inicialmente son datos de demostración. No deben
 publicarse como información real hasta completar el proceso editorial y documentar sus fuentes.
