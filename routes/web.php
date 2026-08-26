@@ -18,9 +18,11 @@ use App\Http\Controllers\BusinessClaimController;
 use App\Http\Controllers\MerchantPlaceController;
 use App\Http\Controllers\Admin\PlaceManagementController;
 use App\Http\Controllers\Admin\TaxonomyController;
+use App\Http\Controllers\ExploreController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
+Route::get('/explorar',ExploreController::class)->name('explore');
 Route::get('/lugares/{place}', [PlaceController::class, 'show'])->name('places.show');
 Route::post('/lugares/{place}/resenas', [ReviewController::class, 'store'])->middleware(['auth', 'verified', 'throttle:5,1'])->name('reviews.store');
 Route::post('/lugares/{place}/check-in', [CheckInController::class, 'store'])->middleware(['auth','verified','throttle:5,1'])->name('checkins.store');
