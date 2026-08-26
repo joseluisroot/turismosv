@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -25,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'role',
         'terms_accepted_at',
         'terms_version',
+        'points_balance',
     ];
 
     /**
@@ -48,6 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'terms_accepted_at' => 'datetime',
+            'points_balance' => 'integer',
         ];
     }
 
@@ -65,4 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(PassportStamp::class);
     }
+
+    public function achievements(): BelongsToMany { return $this->belongsToMany(Achievement::class,'user_achievements')->withPivot(['passport_stamp_id','earned_at'])->withTimestamps(); }
+    public function pointTransactions(): HasMany { return $this->hasMany(PointTransaction::class); }
 }

@@ -24,9 +24,9 @@ Cada lugar tiene una historia; cada dato debe tener respaldo; cada reconocimient
 - "Verificado por TurismoSV" describe una metodología privada y no una certificación gubernamental.
 - La información sensible y la ubicación personal nunca son públicas por defecto.
 
-## Requisito futuro: pasaporte social, logros y puntos
+## Pasaporte, logros y puntos
 
-El pasaporte digital deberá convertirse en una pieza personal que el usuario pueda mostrar y compartir cuando complete un logro. Esta capacidad se implementará después del sistema de lugares, check-ins y moderación.
+El pasaporte digital reúne los sellos obtenidos mediante visitas verificadas. La primera versión de logros y puntos ya está activa; las tarjetas para compartir se incorporarán en un incremento posterior.
 
 ### Capacidades previstas
 
@@ -46,15 +46,17 @@ El pasaporte digital deberá convertirse en una pieza personal que el usuario pu
 - Los puntos no tendrán valor monetario ni serán canjeables hasta definir reglas, vigencia, patrocinadores, impuestos y condiciones legales.
 - Las publicaciones sociales serán siempre voluntarias y requerirán una acción explícita del usuario.
 
-### Modelo inicial de puntos por definir
+### Modelo inicial de puntos
 
-- Check-in verificado: puntos base.
+- Check-in verificado: 100 puntos, una sola vez por sello.
 - Reseña útil posterior a una visita: puntos adicionales.
-- Logro completado: bonificación única.
+- Primera visita verificada: 50 puntos adicionales.
+- Tres lugares diferentes: 100 puntos adicionales.
+- Dos departamentos diferentes: 150 puntos adicionales.
 - Primera publicación voluntaria de cada logro: bonificación social única.
 - Contenido denunciado, duplicado o fraudulento: retención o reversión de puntos.
 
-Antes de desarrollar esta función deberán definirse la matriz definitiva de puntos, los niveles de verificación, las reglas de privacidad y las condiciones de cualquier premio patrocinado.
+Cada movimiento queda en un registro inmutable con una clave de idempotencia, por lo que repetir una verificación no duplica puntos ni logros. La matriz podrá ampliarse antes del lanzamiento, manteniendo estas garantías.
 
 ## Estado de esta primera entrega
 
