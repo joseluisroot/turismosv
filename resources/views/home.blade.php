@@ -16,6 +16,7 @@
         <nav class="desktop-nav" aria-label="Navegación principal">
             <a href="{{ route('explore') }}">Descubrir</a>
             <a href="{{ route('rankings.index') }}">Rankings</a>
+            <a href="{{ route('postcards.index') }}">Postal semanal</a>
             <a href="#pasaporte">Pasaporte</a>
             <a href="#confianza">Cómo verificamos</a>
         </nav>

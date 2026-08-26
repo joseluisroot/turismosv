@@ -21,11 +21,14 @@ use App\Http\Controllers\Admin\TaxonomyController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\RankingController;
 use App\Http\Controllers\Admin\FounderCatalogController;
+use App\Http\Controllers\WeeklyPostcardController;
+use App\Http\Controllers\Admin\WeeklyPostcardController as AdminWeeklyPostcardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 Route::get('/explorar',ExploreController::class)->name('explore');
 Route::get('/rankings/{category?}',RankingController::class)->name('rankings.index');
+Route::get('/postal-de-la-semana',[WeeklyPostcardController::class,'index'])->name('postcards.index');
 Route::get('/lugares/{place}', [PlaceController::class, 'show'])->name('places.show');
 Route::post('/lugares/{place}/resenas', [ReviewController::class, 'store'])->middleware(['auth', 'verified', 'throttle:5,1'])->name('reviews.store');
 Route::post('/lugares/{place}/check-in', [CheckInController::class, 'store'])->middleware(['auth','verified','throttle:5,1'])->name('checkins.store');
@@ -48,6 +51,7 @@ Route::middleware('guest')->group(function () {
 Route::prefix('administracion')->name('admin.')->middleware(['auth','verified','admin'])->group(function(){
     Route::get('/catalogo-fundador',[FounderCatalogController::class,'index'])->name('founder.index');
     Route::put('/catalogo-fundador/{place}',[FounderCatalogController::class,'update'])->name('founder.update');
+    Route::post('/postal-de-la-semana/seleccionar',[AdminWeeklyPostcardController::class,'select'])->name('postcards.select');
     Route::get('/lugares',[PlaceManagementController::class,'index'])->name('places.index');
     Route::get('/lugares/crear',[PlaceManagementController::class,'create'])->name('places.create');
     Route::post('/lugares',[PlaceManagementController::class,'store'])->name('places.store');
@@ -67,6 +71,8 @@ Route::prefix('administracion')->name('admin.')->middleware(['auth','verified','
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('/postal-de-la-semana/fotos/{photo}',[WeeklyPostcardController::class,'nominate'])->middleware(['verified','throttle:5,1'])->name('postcards.nominate');
+    Route::post('/postal-de-la-semana/votos/{entry}',[WeeklyPostcardController::class,'vote'])->middleware(['verified','throttle:10,1'])->name('postcards.vote');
     Route::post('/salir', [AuthController::class, 'destroy'])->name('logout');
     Route::get('/verificar-correo', [AuthController::class, 'verificationNotice'])->name('verification.notice');
     Route::get('/verificar-correo/{id}/{hash}', [AuthController::class, 'verify'])->middleware('signed')->name('verification.verify');
