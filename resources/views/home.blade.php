@@ -14,7 +14,7 @@
             <img src="{{ asset('brand/logo-turismosv.svg') }}" alt="TurismoSV — El Salvador lo descubres tú">
         </a>
         <nav class="desktop-nav" aria-label="Navegación principal">
-            <a href="#descubrir">Descubrir</a>
+            <a href="{{ route('explore') }}">Descubrir</a>
             <a href="#pasaporte">Pasaporte</a>
             <a href="#confianza">Cómo verificamos</a>
         </nav>
@@ -36,7 +36,7 @@
                 <p class="eyebrow">El Salvador se vive, se descubre y se comparte</p>
                 <h1>Tu próximo lugar favorito está más cerca de lo que imaginas.</h1>
                 <p class="hero-intro">Explora destinos con información comprobable, reseñas auténticas y una comunidad que recorre el país contigo.</p>
-                <form class="search-box" action="#descubrir" method="get">
+                <form class="search-box" action="{{ route('explore') }}" method="get">
                     <label class="sr-only" for="search">Buscar lugares</label>
                     <span aria-hidden="true">⌕</span>
                     <input id="search" name="q" type="search" placeholder="Busca una playa, pueblo o experiencia">
@@ -72,14 +72,14 @@
         <section class="section" id="descubrir">
             <div class="section-heading">
                 <div><p class="eyebrow">Empieza por lo que te inspira</p><h2>¿Qué quieres descubrir?</h2></div>
-                <a href="#lugares">Ver todos los lugares <span>→</span></a>
+                <a href="{{ route('explore') }}">Ver todos los lugares <span>→</span></a>
             </div>
             <div class="category-grid">
                 @foreach ($categories as $category)
-                    <article class="category-card">
+                    <a class="category-card" href="{{ route('explore',['category'=>$category->slug]) }}">
                         <span class="category-icon" aria-hidden="true">{{ $category->icon }}</span>
                         <div><h3>{{ $category->name }}</h3><p>{{ $category->description }}</p><small>{{ $category->places_count }} lugares iniciales</small></div>
-                    </article>
+                    </a>
                 @endforeach
             </div>
         </section>

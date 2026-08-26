@@ -81,5 +81,9 @@ Una persona verificada puede reclamar una ficha aportando relación, contacto y 
 
 Los administradores crean lugares inicialmente como borradores, gestionan categorías y departamentos y controlan publicación o archivo. Para publicar se exige una fuente identificada y fecha de verificación. El registro conserva notas editoriales privadas, responsable de creación, último editor y fecha inicial de publicación.
 
+### Descubrimiento del catálogo
+
+La búsqueda pública consulta nombre, municipio y departamento. Los filtros de categoría, territorio, verificación y calificación se combinan y pueden ordenarse por relevancia, calificación, visitas verificadas o publicación reciente. Borradores y archivos quedan excluidos en todos los casos.
+
 Los lugares, métricas y calificaciones cargados inicialmente son datos de demostración. No deben
 publicarse como información real hasta completar el proceso editorial y documentar sus fuentes.
