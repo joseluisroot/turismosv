@@ -60,4 +60,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(CheckIn::class);
     }
+
+    public function passportStamps(): HasMany
+    {
+        return $this->hasMany(PassportStamp::class);
+    }
 }
