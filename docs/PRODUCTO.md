@@ -32,8 +32,8 @@ El pasaporte digital reúne los sellos obtenidos mediante visitas verificadas. L
 
 1. Cada visita válida agrega un sello al pasaporte del usuario.
 2. Los sellos completan logros, por ejemplo: primera visita, tres playas, ruta de montaña o recorrido por un departamento.
-3. Al completar un logro, la plataforma genera una tarjeta visual con el nombre del logro, fecha, progreso y marca TurismoSV.
-4. El usuario decide si desea descargarla o compartirla en Instagram, Facebook, TikTok, X u otras aplicaciones compatibles.
+3. Al completar un logro, la plataforma genera una tarjeta PNG vertical con el nombre del logro, fecha, puntos y marca TurismoSV.
+4. El usuario decide si desea descargarla o compartirla mediante el menú nativo de su dispositivo en Instagram, Facebook, TikTok, X, WhatsApp u otra aplicación compatible.
 5. El pasaporte completo tendrá una vista pública opcional y una versión visual compartible, sin revelar ubicaciones sensibles ni recorridos en tiempo real.
 6. El usuario recibe puntos por visitas verificadas y logros. Compartir podrá entregar una bonificación limitada, pero no deberá permitir acumular puntos indefinidamente por la misma publicación.
 
