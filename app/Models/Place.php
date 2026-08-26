@@ -21,6 +21,11 @@ class Place extends Model
         return ['rating_average' => 'decimal:1', 'is_featured' => 'boolean'];
     }
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

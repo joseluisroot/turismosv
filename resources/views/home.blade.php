@@ -110,6 +110,7 @@
                                 @endif
                                 <small>{{ $place->verified_visits_count }} visitas · {{ $place->reviews_count }} reseñas</small>
                             </div>
+                            <a class="place-link" href="{{ route('places.show', $place) }}">Ver ficha completa <span>→</span></a>
                         </div>
                     </article>
                 @endforeach
