@@ -6,6 +6,7 @@ use App\Models\Place;
 use App\Models\Review;
 use App\Models\CheckIn;
 use App\Models\PlacePhoto;
+use App\Models\BusinessClaim;
 use Illuminate\Contracts\View\View;
 
 class PlaceController extends Controller
@@ -21,6 +22,7 @@ class PlaceController extends Controller
             ? CheckIn::query()->whereBelongsTo(auth()->user())->whereBelongsTo($place)->latest('visited_on')->first()
             : null;
         $userPhotos=auth()->check()?PlacePhoto::query()->whereBelongsTo(auth()->user())->whereBelongsTo($place)->latest()->limit(5)->get():collect();
+        $userClaim=auth()->check()?BusinessClaim::query()->whereBelongsTo(auth()->user())->whereBelongsTo($place)->first():null;
 
         $relatedPlaces = Place::query()
             ->with(['category', 'department'])
@@ -33,6 +35,6 @@ class PlaceController extends Controller
             ->take(3)
             ->get();
 
-        return view('places.show', compact('place', 'relatedPlaces', 'userReview', 'userCheckIn','userPhotos'));
+        return view('places.show', compact('place', 'relatedPlaces', 'userReview', 'userCheckIn','userPhotos','userClaim'));
     }
 }

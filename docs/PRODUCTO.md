@@ -73,5 +73,9 @@ Las fotografías se almacenan de forma privada al recibirse y solo una decisión
 
 Las cuentas con rol `admin` disponen de un panel privado para decidir sobre fotografías, visitas pendientes y denuncias. Cada acción registra responsable, fecha y justificación; verificar una visita utiliza el mismo servicio transaccional que emite sellos y puntos, evitando duplicados.
 
+### Gestión de comercios
+
+Una persona verificada puede reclamar una ficha aportando relación, contacto y documento privado. Solo después de aprobación administrativa puede editar descripción, contacto, dirección, horarios y referencia de precios oficiales. El comercio no puede modificar nombre editorial, reseñas, estrellas, visitas, puntuación de confianza ni ranking.
+
 Los lugares, métricas y calificaciones cargados inicialmente son datos de demostración. No deben
 publicarse como información real hasta completar el proceso editorial y documentar sus fuentes.

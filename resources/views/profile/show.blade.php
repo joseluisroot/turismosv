@@ -9,6 +9,7 @@
 <a class="primary-button form-submit" href="{{ route('passport.show') }}">Abrir mi pasaporte</a>
 @if($user->role==='admin')<a class="primary-button form-submit admin-entry" href="{{ route('admin.moderation.index') }}">Abrir panel de moderación</a>@endif
 <a class="text-button profile-explore" href="{{ route('interests.edit') }}">Editar mis intereses</a>
+<a class="text-button profile-explore" href="{{ route('merchant.index') }}">Mis comercios y solicitudes</a>
 <section class="public-profile-settings"><p class="eyebrow">Privacidad y comunidad</p><h3>Mi perfil público</h3><p>Comparte tus avances sin mostrar correo, visitas pendientes ni ubicaciones precisas. Está desactivado hasta que tú lo autorices.</p>
 @if($user->is_profile_public)<a class="public-profile-link" href="{{ route('travelers.public',$user->public_profile_id) }}" target="_blank" rel="noopener">Ver mi perfil público →</a>@endif
 <form method="post" action="{{ route('profile.public.update') }}" class="public-profile-form">@csrf @method('PUT')

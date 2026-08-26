@@ -82,4 +82,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function pointTransactions(): HasMany { return $this->hasMany(PointTransaction::class); }
     public function interests(): BelongsToMany { return $this->belongsToMany(Interest::class)->withTimestamps(); }
     public function placePhotos(): HasMany { return $this->hasMany(PlacePhoto::class); }
+    public function businessClaims(): HasMany { return $this->hasMany(BusinessClaim::class); }
 }
