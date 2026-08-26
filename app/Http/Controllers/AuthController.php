@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
@@ -87,9 +88,20 @@ class AuthController extends Controller
 
     public function verificationNotice(): View|RedirectResponse
     {
-        return request()->user()->hasVerifiedEmail()
-            ? redirect()->route('profile')
-            : view('auth.verify-email');
+        $user = request()->user();
+
+        if ($user->hasVerifiedEmail()) {
+            return redirect()->route('profile');
+        }
+
+        $localVerificationUrl = app()->isLocal()
+            ? URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), [
+                'id' => $user->getKey(),
+                'hash' => sha1($user->getEmailForVerification()),
+            ])
+            : null;
+
+        return view('auth.verify-email', compact('localVerificationUrl'));
     }
 
     public function verify(EmailVerificationRequest $request): RedirectResponse
