@@ -20,14 +20,14 @@ class DatabaseSeeder extends Seeder
             ['name' => 'San Salvador', 'slug' => 'san-salvador'],
             ['name' => 'Santa Ana', 'slug' => 'santa-ana'],
             ['name' => 'Sonsonate', 'slug' => 'sonsonate'],
-        ])->mapWithKeys(fn (array $data) => [$data['slug'] => Department::query()->create($data)]);
+        ])->mapWithKeys(fn (array $data) => [$data['slug'] => Department::query()->updateOrCreate(['slug' => $data['slug']], $data)]);
 
         $categories = collect([
             ['name' => 'Playas', 'slug' => 'playas', 'icon' => '≈', 'description' => 'Costa, surf y atardeceres frente al Pacífico.'],
             ['name' => 'Montaña', 'slug' => 'montana', 'icon' => '△', 'description' => 'Cumbres, senderos y paisajes de altura.'],
             ['name' => 'Pueblos', 'slug' => 'pueblos', 'icon' => '◇', 'description' => 'Historia, cultura y tradiciones vivas.'],
             ['name' => 'Gastronomía', 'slug' => 'gastronomia', 'icon' => '○', 'description' => 'Sabores locales y experiencias para compartir.'],
-        ])->mapWithKeys(fn (array $data) => [$data['slug'] => Category::query()->create($data)]);
+        ])->mapWithKeys(fn (array $data) => [$data['slug'] => Category::query()->updateOrCreate(['slug' => $data['slug']], $data)]);
 
         $places = [
             ['name' => 'El Tunco', 'slug' => 'el-tunco', 'summary' => 'Una puerta al Pacífico salvadoreño, reconocida por su ambiente costero y cultura de surf.', 'municipality' => 'Tamanique', 'department' => 'la-libertad', 'category' => 'playas', 'status' => 'community_confirmed', 'score' => 76, 'rating' => 4.7, 'reviews' => 128, 'visits' => 342],
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($places as $place) {
-            Place::query()->create([
+            Place::query()->updateOrCreate(['slug' => $place['slug']], [
                 'category_id' => $categories[$place['category']]->id,
                 'department_id' => $departments[$place['department']]->id,
                 'name' => $place['name'], 'slug' => $place['slug'], 'summary' => $place['summary'],
