@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\FounderCatalogController;
 use App\Http\Controllers\WeeklyPostcardController;
 use App\Http\Controllers\Admin\WeeklyPostcardController as AdminWeeklyPostcardController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -48,6 +49,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/ingresar', [AuthController::class, 'login'])->name('login');
     Route::post('/ingresar', [AuthController::class, 'authenticate']);
 });
+Route::get('/acceso/{provider}',[SocialAuthController::class,'redirect'])->name('social.redirect');
+Route::get('/acceso/{provider}/callback',[SocialAuthController::class,'callback'])->name('social.callback');
+Route::middleware('guest')->group(function(){Route::get('/acceso-social/consentimiento',[SocialAuthController::class,'consent'])->name('social.consent');Route::post('/acceso-social/consentimiento',[SocialAuthController::class,'complete'])->name('social.complete');});
 
 Route::prefix('administracion')->name('admin.')->middleware(['auth','verified','admin'])->group(function(){
     Route::get('/',DashboardController::class)->name('dashboard');
