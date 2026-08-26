@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Place;
+use App\Models\SponsorshipCampaign;
 use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
@@ -12,6 +13,7 @@ class HomeController extends Controller
     {
         $recommendedPlaces=collect();$user=request()->user();
         if($user?->hasVerifiedEmail()&&$user->interests()->exists()){$categoryIds=$user->interests()->whereNotNull('category_id')->pluck('category_id')->unique()->values();$visited=$user->checkIns()->pluck('place_id');$query=Place::query()->with(['category','department'])->where('publication_status','published')->whereNotIn('id',$visited);if($categoryIds->isNotEmpty()){$query->whereIn('category_id',$categoryIds);}$recommendedPlaces=$query->orderByDesc('verification_score')->orderByDesc('rating_average')->take(3)->get();}
+        $sponsoredCampaign=SponsorshipCampaign::active()->with('place')->inRandomOrder()->first();if($sponsoredCampaign)$sponsoredCampaign->increment('impressions');
         return view('home', [
             'categories' => Category::query()->withCount(['places'=>fn($query)=>$query->where('publication_status','published')])->orderBy('name')->get(),
             'featuredPlaces' => Place::query()
@@ -22,6 +24,7 @@ class HomeController extends Controller
                 ->take(6)
                 ->get(),
             'recommendedPlaces'=>$recommendedPlaces,
+            'sponsoredCampaign'=>$sponsoredCampaign,
             'stats' => [
                 'places' => Place::query()->where('publication_status','published')->count(),
                 'verified' => Place::query()->where('publication_status','published')->where('verification_status', 'verified')->count(),

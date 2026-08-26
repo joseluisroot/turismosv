@@ -124,6 +124,8 @@
 
         @auth @if($recommendedPlaces->isNotEmpty())<section class="section recommendations-section"><div class="section-heading"><div><p class="eyebrow">Elegidos según tus intereses</p><h2>Recomendado para ti</h2></div><a href="{{ route('interests.edit') }}">Ajustar intereses →</a></div><div class="places-grid">@foreach($recommendedPlaces as $index=>$place)<article class="place-card tone-{{ ($index%4)+1 }}"><div class="place-visual"><span class="place-category">{{ $place->category->name }}</span><span class="photo-pending">Coincide con<br>tus intereses</span><span class="place-number">0{{ $loop->iteration }}</span></div><div class="place-content"><div class="place-meta"><span>{{ $place->municipality }}, {{ $place->department->name }}</span><span class="rating">★ {{ $place->rating_average }}</span></div><h3>{{ $place->name }}</h3><p>{{ $place->summary }}</p><a class="place-link" href="{{ route('places.show',$place) }}">Ver recomendación <span>→</span></a></div></article>@endforeach</div></section>@endif @endauth
 
+        @if($sponsoredCampaign)<section class="sponsored-section"><div><span>Contenido patrocinado</span><small>Publicidad · No modifica rankings ni calificaciones</small></div><h2>{{ $sponsoredCampaign->title }}</h2><p>{{ $sponsoredCampaign->description }}</p><footer><b>Patrocinado por {{ $sponsoredCampaign->sponsor_name }}</b><a href="{{ route('sponsorships.click',$sponsoredCampaign) }}" rel="sponsored nofollow">Conocer propuesta →</a></footer></section>@endif
+
         <section class="verification-section" id="confianza">
             <div><p class="eyebrow light">Confianza visible</p><h2>No basta con decir que un lugar es bueno. Mostramos por qué puedes confiar.</h2></div>
             <ol class="verification-steps">
