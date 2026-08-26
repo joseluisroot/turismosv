@@ -108,7 +108,7 @@ class AuthController extends Controller
     {
         $request->fulfill();
 
-        return redirect()->route('profile')->with('status', 'Tu correo fue verificado correctamente.');
+        return redirect()->route('interests.edit')->with('status', 'Tu correo fue verificado. Ahora dinos qué te inspira.');
     }
 
     public function resend(Request $request): RedirectResponse

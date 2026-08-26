@@ -59,6 +59,10 @@ El pasaporte digital reúne los sellos obtenidos mediante visitas verificadas. L
 
 Cada movimiento queda en un registro inmutable con una clave de idempotencia, por lo que repetir una verificación no duplica puntos ni logros. La matriz podrá ampliarse antes del lanzamiento, manteniendo estas garantías.
 
+## Personalización privada
+
+Después de verificar el correo, el viajero puede elegir hasta seis intereses. La primera recomendación combina esas preferencias con la calidad del catálogo y excluye lugares que ya registró como visitados. Los intereses son privados, opcionales y editables; no forman parte del perfil público.
+
 ## Estado de esta primera entrega
 
 Los lugares, métricas y calificaciones cargados inicialmente son datos de demostración. No deben

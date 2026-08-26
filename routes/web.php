@@ -10,6 +10,7 @@ use App\Http\Controllers\PassportController;
 use App\Http\Controllers\AchievementCardController;
 use App\Http\Controllers\PublicTravelerProfileController;
 use App\Http\Controllers\PublicProfileSettingsController;
+use App\Http\Controllers\InterestController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/verificar-correo/{id}/{hash}', [AuthController::class, 'verify'])->middleware('signed')->name('verification.verify');
     Route::post('/verificar-correo/reenviar', [AuthController::class, 'resend'])->middleware('throttle:6,1')->name('verification.send');
     Route::get('/mi-perfil', [AuthController::class, 'profile'])->middleware('verified')->name('profile');
+    Route::get('/mis-intereses',[InterestController::class,'edit'])->middleware('verified')->name('interests.edit');
+    Route::put('/mis-intereses',[InterestController::class,'update'])->middleware(['verified','throttle:10,1'])->name('interests.update');
     Route::put('/mi-perfil/publico',[PublicProfileSettingsController::class,'update'])->middleware(['verified','throttle:10,1'])->name('profile.public.update');
     Route::get('/mi-pasaporte',[PassportController::class,'show'])->middleware('verified')->name('passport.show');
     Route::get('/mi-pasaporte/logros/{achievement}',[AchievementCardController::class,'show'])->middleware('verified')->name('passport.achievements.card');
