@@ -14,6 +14,13 @@ class User extends Authenticatable implements MustVerifyEmail
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $attributes = [
+        'is_profile_public' => false,
+        'public_name_mode' => 'alias',
+        'show_public_achievements' => true,
+        'show_public_stamps' => false,
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,6 +34,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'terms_accepted_at',
         'terms_version',
         'points_balance',
+        'public_profile_id','is_profile_public','public_name_mode','public_alias','show_public_achievements','show_public_stamps','public_profile_updated_at',
     ];
 
     /**
@@ -51,6 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
             'terms_accepted_at' => 'datetime',
             'points_balance' => 'integer',
+            'is_profile_public' => 'boolean','show_public_achievements' => 'boolean','show_public_stamps' => 'boolean','public_profile_updated_at' => 'datetime',
         ];
     }
 
