@@ -19,8 +19,13 @@
             <a href="#confianza">Cómo verificamos</a>
         </nav>
         <div class="header-actions">
-            <button class="ghost-button" type="button">Ingresar</button>
-            <button class="primary-button small" type="button">Crear cuenta</button>
+            @auth
+                <a class="ghost-button" href="{{ route('profile') }}">Mi perfil</a>
+                <form method="post" action="{{ route('logout') }}">@csrf<button class="primary-button small" type="submit">Salir</button></form>
+            @else
+                <a class="ghost-button" href="{{ route('login') }}">Ingresar</a>
+                <a class="primary-button small" href="{{ route('register') }}">Crear cuenta</a>
+            @endauth
         </div>
     </header>
 
@@ -129,7 +134,7 @@
     <footer>
         <a class="brand footer-brand" href="{{ route('home') }}" aria-label="TurismoSV, inicio"><img src="{{ asset('brand/isotipo-turismosv.svg') }}" alt=""><span>Turismo<span>SV</span></span></a>
         <p>Un catálogo vivo para descubrir El Salvador con confianza.</p>
-        <nav aria-label="Información legal"><a href="#">Privacidad</a><a href="#">Términos</a><a href="#">Cookies</a><a href="#">Normas de la comunidad</a></nav>
+        <nav aria-label="Información legal"><a href="{{ route('legal.privacy') }}">Privacidad</a><a href="{{ route('legal.terms') }}">Términos</a><a href="#">Cookies</a><a href="#">Normas de la comunidad</a></nav>
     </footer>
 </body>
 </html>
