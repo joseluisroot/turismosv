@@ -5,7 +5,7 @@
 <h2>Crea tu cuenta</h2>
 <p class="form-intro">Empieza a construir tu pasaporte de experiencias.</p>
 @error('social')<div class="status-error">{{ $message }}</div>@enderror
-<div class="social-access"><a href="{{ route('social.redirect','google') }}">Registrarme con Google</a><a href="{{ route('social.redirect','facebook') }}">Registrarme con Facebook</a></div><div class="account-divider"><span>o crea una contraseña</span></div>
+<div class="social-access"><a href="{{ route('social.redirect','google') }}"><x-social-icon provider="google"/><span>Registrarme con Google</span></a><a href="{{ route('social.redirect','facebook') }}"><x-social-icon provider="facebook"/><span>Registrarme con Facebook</span></a></div><div class="account-divider"><span>o crea una contraseña</span></div>
 <form method="post" action="{{ route('register') }}" class="account-form">
     @csrf
     <label>Nombre completo<input name="name" value="{{ old('name') }}" autocomplete="name" required autofocus>@error('name')<small>{{ $message }}</small>@enderror</label>
