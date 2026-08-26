@@ -8,6 +8,8 @@ use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\QrCheckInController;
 use App\Http\Controllers\PassportController;
 use App\Http\Controllers\AchievementCardController;
+use App\Http\Controllers\PublicTravelerProfileController;
+use App\Http\Controllers\PublicProfileSettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -15,6 +17,7 @@ Route::get('/lugares/{place}', [PlaceController::class, 'show'])->name('places.s
 Route::post('/lugares/{place}/resenas', [ReviewController::class, 'store'])->middleware(['auth', 'verified', 'throttle:5,1'])->name('reviews.store');
 Route::post('/lugares/{place}/check-in', [CheckInController::class, 'store'])->middleware(['auth','verified','throttle:5,1'])->name('checkins.store');
 Route::get('/visita/qr/{publicId}/{secret}',[QrCheckInController::class,'show'])->name('qr.show');
+Route::get('/viajeros/{publicProfileId}',[PublicTravelerProfileController::class,'show'])->name('travelers.public');
 Route::post('/visita/qr/{publicId}/{secret}',[QrCheckInController::class,'confirm'])->middleware(['auth','verified','throttle:5,1'])->name('qr.confirm');
 
 Route::middleware('guest')->group(function () {
@@ -30,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/verificar-correo/{id}/{hash}', [AuthController::class, 'verify'])->middleware('signed')->name('verification.verify');
     Route::post('/verificar-correo/reenviar', [AuthController::class, 'resend'])->middleware('throttle:6,1')->name('verification.send');
     Route::get('/mi-perfil', [AuthController::class, 'profile'])->middleware('verified')->name('profile');
+    Route::put('/mi-perfil/publico',[PublicProfileSettingsController::class,'update'])->middleware(['verified','throttle:10,1'])->name('profile.public.update');
     Route::get('/mi-pasaporte',[PassportController::class,'show'])->middleware('verified')->name('passport.show');
     Route::get('/mi-pasaporte/logros/{achievement}',[AchievementCardController::class,'show'])->middleware('verified')->name('passport.achievements.card');
 });

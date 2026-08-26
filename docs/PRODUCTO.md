@@ -45,6 +45,7 @@ El pasaporte digital reúne los sellos obtenidos mediante visitas verificadas. L
 - El sistema registrará por qué se otorgaron o retiraron puntos y permitirá resolver reclamaciones.
 - Los puntos no tendrán valor monetario ni serán canjeables hasta definir reglas, vigencia, patrocinadores, impuestos y condiciones legales.
 - Las publicaciones sociales serán siempre voluntarias y requerirán una acción explícita del usuario.
+- El perfil público está desactivado por defecto. El viajero elige alias o nombre real y controla por separado la visibilidad de logros y sellos; nunca se publica el correo ni una visita pendiente.
 
 ### Modelo inicial de puntos
 
