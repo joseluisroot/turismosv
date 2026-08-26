@@ -57,7 +57,7 @@
                 <div class="passport-content">
                     <div class="country-seal"><span>14</span><small>departamentos</small></div>
                     <p>COLECCIONA EXPERIENCIAS</p>
-                    <h2>El Salvador<br>es tuyo por descubrir.</h2>
+                    <h2>Descubre El Salvador,<br>una experiencia a la vez.</h2>
                     <div class="stamp-row" aria-label="Ejemplos de sellos turísticos">
                         <span>PLAYA<small>01</small></span><span>MONTAÑA<small>02</small></span><span>PUEBLOS<small>03</small></span>
                     </div>
