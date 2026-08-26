@@ -1,0 +1,6 @@
+@extends('layouts.account')
+@section('title', 'Términos y Condiciones')
+@section('content')
+<p class="eyebrow">Versión preliminar</p><h2>Términos y Condiciones</h2>
+<div class="legal-copy"><p>Estos términos regulan el uso inicial de TurismoSV. Al crear una cuenta, la persona declara que la información proporcionada es verdadera y que utilizará la plataforma de forma respetuosa.</p><h3>Contenido comunitario</h3><p>Las reseñas deberán reflejar experiencias honestas. No se permite suplantación, acoso, publicidad encubierta ni contenido ilegal. TurismoSV podrá moderar contenido que incumpla estas reglas.</p><h3>Información turística</h3><p>La plataforma procura mantener información comprobable, pero horarios, precios y condiciones pueden cambiar. Los usuarios deben confirmar información sensible directamente con el establecimiento.</p><h3>Propiedad y fotografías</h3><p>Quien publique contenido deberá contar con autorización o derechos suficientes. La licencia detallada de publicación se incorporará antes del lanzamiento público.</p><p><strong>Importante:</strong> este documento es un borrador operativo y deberá ser revisado por un profesional del derecho salvadoreño antes del lanzamiento comercial.</p></div>
+@endsection
