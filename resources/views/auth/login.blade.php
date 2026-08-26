@@ -5,7 +5,7 @@
 <h2>Ingresa a TurismoSV</h2>
 <p class="form-intro">Continúa descubriendo lugares y experiencias.</p>
 @error('social')<div class="status-error">{{ $message }}</div>@enderror
-<div class="social-access"><a href="{{ route('social.redirect','google') }}">Continuar con Google</a><a href="{{ route('social.redirect','facebook') }}">Continuar con Facebook</a></div><div class="account-divider"><span>o usa tu correo</span></div>
+<div class="social-access"><a href="{{ route('social.redirect','google') }}"><x-social-icon provider="google"/><span>Continuar con Google</span></a><a href="{{ route('social.redirect','facebook') }}"><x-social-icon provider="facebook"/><span>Continuar con Facebook</span></a></div><div class="account-divider"><span>o usa tu correo</span></div>
 <form method="post" action="{{ route('login') }}" class="account-form">
     @csrf
     <label>Correo electrónico<input type="email" name="email" value="{{ old('email') }}" autocomplete="email" required autofocus>@error('email')<small>{{ $message }}</small>@enderror</label>
