@@ -5,12 +5,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CheckInController;
+use App\Http\Controllers\QrCheckInController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 Route::get('/lugares/{place}', [PlaceController::class, 'show'])->name('places.show');
 Route::post('/lugares/{place}/resenas', [ReviewController::class, 'store'])->middleware(['auth', 'verified', 'throttle:5,1'])->name('reviews.store');
 Route::post('/lugares/{place}/check-in', [CheckInController::class, 'store'])->middleware(['auth','verified','throttle:5,1'])->name('checkins.store');
+Route::get('/visita/qr/{publicId}/{secret}',[QrCheckInController::class,'show'])->name('qr.show');
+Route::post('/visita/qr/{publicId}/{secret}',[QrCheckInController::class,'confirm'])->middleware(['auth','verified','throttle:5,1'])->name('qr.confirm');
 
 Route::middleware('guest')->group(function () {
     Route::get('/registro', [AuthController::class, 'register'])->name('register');
