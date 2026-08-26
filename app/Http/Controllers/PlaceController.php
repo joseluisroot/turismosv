@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Place;
+use App\Models\Review;
 use Illuminate\Contracts\View\View;
 
 class PlaceController extends Controller
 {
     public function show(Place $place): View
     {
-        $place->load(['category', 'department']);
+        $place->load(['category', 'department', 'reviews' => fn ($query) => $query->with('user:id,name')->where('status', 'published')->latest()->limit(20)]);
+
+        $userReview = auth()->check()
+            ? Review::query()->whereBelongsTo(auth()->user())->whereBelongsTo($place)->first()
+            : null;
 
         $relatedPlaces = Place::query()
             ->with(['category', 'department'])
@@ -22,6 +27,6 @@ class PlaceController extends Controller
             ->take(3)
             ->get();
 
-        return view('places.show', compact('place', 'relatedPlaces'));
+        return view('places.show', compact('place', 'relatedPlaces', 'userReview'));
     }
 }
