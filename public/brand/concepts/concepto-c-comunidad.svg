@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" role="img" aria-labelledby="title desc">
+  <title id="title">TurismoSV, concepto Alas de Comunidad</title>
+  <desc id="desc">Un torogoz minimalista formado por piezas de colores acompañado del nombre TurismoSV.</desc>
+  <rect width="760" height="240" rx="32" fill="#FFF4E7"/>
+  <g transform="translate(42 36)">
+    <circle cx="84" cy="82" r="77" fill="#FFFFFF"/>
+    <path d="M41 88c18-43 61-61 103-35-22 1-39 9-51 25 25-4 45 5 58 25-33-11-60 2-78 39-3-24-14-42-32-54Z" fill="#075B5E"/>
+    <path d="M72 77c17-25 41-34 68-25-15 5-26 13-33 25-12-3-24-3-35 0Z" fill="#21B8A6"/>
+    <path d="M92 81c-7 24-2 44 15 59-18-6-32-17-41-33 7-12 16-21 26-26Z" fill="#F06449"/>
+    <path d="M76 142c20 2 39-2 56-12-8 16-21 28-39 36Z" fill="#F3B63F"/>
+    <circle cx="129" cy="58" r="4" fill="#102D38"/>
+  </g>
+  <g transform="translate(242 62)">
+    <text x="0" y="66" fill="#075B5E" font-family="Sora,Arial,sans-serif" font-size="66" font-weight="760" letter-spacing="-3.5">Turismo</text>
+    <text x="267" y="66" fill="#F06449" font-family="Sora,Arial,sans-serif" font-size="66" font-weight="820" letter-spacing="-3.5">SV</text>
+    <text x="4" y="109" fill="#52666B" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="600" letter-spacing="1.6">EL TURISMO LO HACEMOS TODOS</text>
+  </g>
+</svg>

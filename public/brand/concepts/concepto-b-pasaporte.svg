@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" role="img" aria-labelledby="title desc">
+  <title id="title">TurismoSV, concepto Sello Pasaporte</title>
+  <desc id="desc">Un sello circular de pasaporte con un torogoz, un volcán y una ruta acompañado del nombre TurismoSV.</desc>
+  <rect width="760" height="240" rx="32" fill="#102D38"/>
+  <g transform="translate(38 22)">
+    <circle cx="98" cy="98" r="88" fill="none" stroke="#F3B63F" stroke-width="4"/>
+    <circle cx="98" cy="98" r="72" fill="#164A52"/>
+    <path d="M34 129 79 83l19 19 21-32 44 59Z" fill="#21B8A6"/>
+    <path d="M42 137c32-17 74-17 112 0" fill="none" stroke="#F8F7F2" stroke-width="5" stroke-linecap="round"/>
+    <path d="M72 74c17-23 42-29 66-13-15 1-27 7-34 18 15 0 27 6 36 18-24-6-43 0-56 20-1-17-5-31-12-43Z" fill="#F06449"/>
+    <circle cx="126" cy="62" r="3.5" fill="#F8F7F2"/>
+    <path d="M72 148c17 8 35 13 54 15" fill="none" stroke="#F3B63F" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 9"/>
+  </g>
+  <g transform="translate(258 64)">
+    <text x="0" y="65" fill="#F8F7F2" font-family="Sora,Arial,sans-serif" font-size="62" font-weight="750" letter-spacing="-3">TURISMO</text>
+    <text x="320" y="65" fill="#F3B63F" font-family="Sora,Arial,sans-serif" font-size="62" font-weight="800" letter-spacing="-3">SV</text>
+    <path d="M4 86h405" stroke="#21B8A6" stroke-width="3"/>
+    <text x="4" y="118" fill="#BFD0CF" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="600" letter-spacing="2.1">TU PASAPORTE PARA DESCUBRIR</text>
+  </g>
+</svg>

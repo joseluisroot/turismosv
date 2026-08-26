@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Descubre lugares verificados, experiencias auténticas y rutas para recorrer El Salvador.">
     <title>TurismoSV — Descubre El Salvador con confianza</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <header class="site-header">
         <a class="brand" href="{{ route('home') }}" aria-label="TurismoSV, inicio">
-            <span class="brand-mark" aria-hidden="true">TSV</span>
-            <span>Turismo<span>SV</span></span>
+            <img src="{{ asset('brand/logo-turismosv.svg') }}" alt="TurismoSV — El Salvador lo descubres tú">
         </a>
         <nav class="desktop-nav" aria-label="Navegación principal">
             <a href="#descubrir">Descubrir</a>
@@ -127,7 +127,7 @@
     </main>
 
     <footer>
-        <a class="brand footer-brand" href="{{ route('home') }}"><span class="brand-mark">TSV</span><span>Turismo<span>SV</span></span></a>
+        <a class="brand footer-brand" href="{{ route('home') }}" aria-label="TurismoSV, inicio"><img src="{{ asset('brand/isotipo-turismosv.svg') }}" alt=""><span>Turismo<span>SV</span></span></a>
         <p>Un catálogo vivo para descubrir El Salvador con confianza.</p>
         <nav aria-label="Información legal"><a href="#">Privacidad</a><a href="#">Términos</a><a href="#">Cookies</a><a href="#">Normas de la comunidad</a></nav>
     </footer>
