@@ -23,6 +23,7 @@ use App\Http\Controllers\RankingController;
 use App\Http\Controllers\Admin\FounderCatalogController;
 use App\Http\Controllers\WeeklyPostcardController;
 use App\Http\Controllers\Admin\WeeklyPostcardController as AdminWeeklyPostcardController;
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -49,6 +50,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::prefix('administracion')->name('admin.')->middleware(['auth','verified','admin'])->group(function(){
+    Route::get('/',DashboardController::class)->name('dashboard');
     Route::get('/catalogo-fundador',[FounderCatalogController::class,'index'])->name('founder.index');
     Route::put('/catalogo-fundador/{place}',[FounderCatalogController::class,'update'])->name('founder.update');
     Route::post('/postal-de-la-semana/seleccionar',[AdminWeeklyPostcardController::class,'select'])->name('postcards.select');

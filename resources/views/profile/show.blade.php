@@ -7,8 +7,7 @@
 <dl class="profile-facts"><div><dt>Rol</dt><dd>Viajero</dd></div><div><dt>Verificadas</dt><dd>{{ $user->verified_check_ins_count }}</dd></div><div><dt>Pendientes</dt><dd>{{ $user->pending_check_ins_count }}</dd></div></dl>
 @if($user->checkIns->isNotEmpty())<div class="profile-checkins"><h3>Visitas recientes</h3>@foreach($user->checkIns as $checkIn)<a href="{{ route('places.show',$checkIn->place) }}#check-in"><span>{{ $checkIn->place->name }}<small>{{ $checkIn->visited_on->translatedFormat('d M Y') }}</small></span><strong class="status-{{ $checkIn->status }}">{{ match($checkIn->status){'verified'=>'Verificada','rejected'=>'Rechazada',default=>'Pendiente'} }}</strong></a>@endforeach</div>@else<p class="profile-note">Todavía no has registrado visitas. Explora una ficha de lugar para comenzar.</p>@endif
 <a class="primary-button form-submit" href="{{ route('passport.show') }}">Abrir mi pasaporte</a>
-@if($user->role==='admin')<a class="primary-button form-submit admin-entry" href="{{ route('admin.moderation.index') }}">Abrir panel de moderación</a>@endif
-@if($user->role==='admin')<a class="text-button profile-explore" href="{{ route('admin.places.index') }}">Administrar catálogo de lugares</a>@endif
+@if($user->role==='admin')<a class="primary-button form-submit admin-entry" href="{{ route('admin.dashboard') }}">Abrir administración</a>@endif
 <a class="text-button profile-explore" href="{{ route('interests.edit') }}">Editar mis intereses</a>
 <a class="text-button profile-explore" href="{{ route('merchant.index') }}">Mis comercios y solicitudes</a>
 <section class="public-profile-settings"><p class="eyebrow">Privacidad y comunidad</p><h3>Mi perfil público</h3><p>Comparte tus avances sin mostrar correo, visitas pendientes ni ubicaciones precisas. Está desactivado hasta que tú lo autorices.</p>
