@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Achievement;
 use App\Models\Category;
 use App\Models\Department;
 use App\Models\Place;
@@ -14,6 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        collect([
+            ['code'=>'primer-sello','name'=>'Explorador inicial','description'=>'Consigue tu primera visita verificada.','icon'=>'✦','criteria_type'=>'verified_places','threshold'=>1,'points_reward'=>50],
+            ['code'=>'ruta-en-marcha','name'=>'Ruta en marcha','description'=>'Visita tres lugares diferentes.','icon'=>'➜','criteria_type'=>'verified_places','threshold'=>3,'points_reward'=>100],
+            ['code'=>'cruza-departamentos','name'=>'Cruza departamentos','description'=>'Registra visitas en dos departamentos.','icon'=>'◇','criteria_type'=>'verified_departments','threshold'=>2,'points_reward'=>150],
+        ])->each(fn(array $data)=>Achievement::query()->updateOrCreate(['code'=>$data['code']],$data+['is_active'=>true]));
+
         $departments = collect([
             ['name' => 'Ahuachapán', 'slug' => 'ahuachapan'],
             ['name' => 'La Libertad', 'slug' => 'la-libertad'],
