@@ -29,7 +29,7 @@ class AuthenticationTest extends TestCase
         $this->assertDatabaseHas('users', [
             'email' => 'ana@example.com',
             'role' => 'traveler',
-            'terms_version' => '2026-08-25',
+            'terms_version' => config('app.terms_version'),
         ]);
         Notification::assertSentTo(User::where('email', 'ana@example.com')->first(), VerifyEmail::class);
     }

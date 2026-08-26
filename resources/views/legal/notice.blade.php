@@ -1,0 +1,5 @@
+@extends('layouts.account')
+@section('title','Aviso Legal')
+@section('content')
+<p class="eyebrow">Identificación del responsable</p><h2>Aviso Legal</h2><div class="legal-copy"><dl class="legal-identity"><div><dt>Responsable</dt><dd>{{ config('legal.owner_name') ?: 'Pendiente de definir antes del lanzamiento' }}</dd></div><div><dt>Identificación fiscal</dt><dd>{{ config('legal.tax_id') ?: 'Pendiente de definir' }}</dd></div><div><dt>Correo</dt><dd>{{ config('legal.contact_email') ?: 'Pendiente de habilitar' }}</dd></div><div><dt>Domicilio</dt><dd>{{ config('legal.address') ?: 'Pendiente de definir' }}</dd></div></dl><p>TurismoSV es un proyecto independiente de información y participación turística. No representa al Ministerio de Turismo, alcaldías ni establecimientos incluidos, salvo que una relación se indique expresamente.</p><p class="legal-warning">Esta página evidencia los datos que aún deben completarse. No debe considerarse lista para lanzamiento comercial mientras existan campos pendientes.</p></div>
+@endsection
