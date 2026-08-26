@@ -1,0 +1,6 @@
+@extends('layouts.account')
+@section('title','Mis comercios')
+@section('content')
+<p class="eyebrow">Participación comercial</p><h2>Mis comercios</h2><p class="form-intro">Consulta tus solicitudes y administra únicamente la información oficial de fichas aprobadas.</p>@if(session('status'))<div class="status-message">{{ session('status') }}</div>@endif
+<div class="merchant-claims">@forelse($claims as $claim)<article><div><small>{{ $claim->place->department?->name }}</small><strong>{{ $claim->place->name }}</strong><span class="status-{{ $claim->status }}">{{ match($claim->status){'approved'=>'Aprobada','rejected'=>'Rechazada',default=>'Pendiente'} }}</span></div><p>{{ $claim->review_note ?: 'La solicitud está en proceso de revisión.' }}</p>@if($claim->status==='approved')<a href="{{ route('merchant.places.edit',$claim->place) }}">Administrar ficha →</a>@else<a href="{{ route('places.show',$claim->place) }}#reclamar">Ver solicitud →</a>@endif</article>@empty<div class="photo-empty">Todavía no has solicitado administrar un lugar. Abre su ficha pública y selecciona “¿Representas este lugar?”.</div>@endforelse</div><a class="text-button profile-explore" href="{{ route('profile') }}">← Volver a mi perfil</a>
+@endsection

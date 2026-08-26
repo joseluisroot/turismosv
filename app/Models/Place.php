@@ -15,11 +15,12 @@ class Place extends Model
         'category_id', 'department_id', 'name', 'slug', 'summary', 'municipality',
         'verification_status', 'verification_score', 'rating_average', 'reviews_count',
         'verified_visits_count', 'is_featured',
+        'official_phone','official_whatsapp','official_website','official_address','official_opening_hours','official_price_reference','official_description','official_updated_at','official_updated_by',
     ];
 
     protected function casts(): array
     {
-        return ['rating_average' => 'decimal:1', 'is_featured' => 'boolean'];
+        return ['rating_average' => 'decimal:1', 'is_featured' => 'boolean','official_updated_at'=>'datetime'];
     }
 
     public function getRouteKeyName(): string
@@ -48,4 +49,6 @@ class Place extends Model
     }
 
     public function photos(): HasMany { return $this->hasMany(PlacePhoto::class); }
+    public function businessClaims(): HasMany { return $this->hasMany(BusinessClaim::class); }
+    public function officialEditor(): BelongsTo { return $this->belongsTo(User::class,'official_updated_by'); }
 }

@@ -14,6 +14,8 @@ use App\Http\Controllers\InterestController;
 use App\Http\Controllers\PlacePhotoController;
 use App\Http\Controllers\ContentReportController;
 use App\Http\Controllers\Admin\ModerationController;
+use App\Http\Controllers\BusinessClaimController;
+use App\Http\Controllers\MerchantPlaceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -27,6 +29,7 @@ Route::post('/visita/qr/{publicId}/{secret}',[QrCheckInController::class,'confir
 Route::post('/lugares/{place}/fotos',[PlacePhotoController::class,'store'])->middleware(['auth','verified','throttle:3,1'])->name('photos.store');
 Route::post('/resenas/{review}/reportar',[ContentReportController::class,'review'])->middleware(['auth','verified','throttle:5,1'])->name('reports.reviews.store');
 Route::post('/fotos/{photo}/reportar',[ContentReportController::class,'photo'])->middleware(['auth','verified','throttle:5,1'])->name('reports.photos.store');
+Route::post('/lugares/{place}/reclamar',[BusinessClaimController::class,'store'])->middleware(['auth','verified','throttle:3,10'])->name('business.claims.store');
 
 Route::middleware('guest')->group(function () {
     Route::get('/registro', [AuthController::class, 'register'])->name('register');
@@ -41,6 +44,8 @@ Route::prefix('administracion')->name('admin.')->middleware(['auth','verified','
     Route::put('/moderacion/fotos/{photo}',[ModerationController::class,'photo'])->name('moderation.photos.update');
     Route::put('/moderacion/visitas/{checkIn}',[ModerationController::class,'checkIn'])->name('moderation.checkins.update');
     Route::put('/moderacion/denuncias/{report}',[ModerationController::class,'report'])->name('moderation.reports.update');
+    Route::get('/moderacion/comercios/{claim}/evidencia',[ModerationController::class,'claimDocument'])->name('moderation.claims.document');
+    Route::put('/moderacion/comercios/{claim}',[ModerationController::class,'claim'])->name('moderation.claims.update');
 });
 
 Route::middleware('auth')->group(function () {
@@ -54,6 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/mi-perfil/publico',[PublicProfileSettingsController::class,'update'])->middleware(['verified','throttle:10,1'])->name('profile.public.update');
     Route::get('/mi-pasaporte',[PassportController::class,'show'])->middleware('verified')->name('passport.show');
     Route::get('/mi-pasaporte/logros/{achievement}',[AchievementCardController::class,'show'])->middleware('verified')->name('passport.achievements.card');
+    Route::get('/mis-comercios',[MerchantPlaceController::class,'index'])->middleware('verified')->name('merchant.index');
+    Route::get('/mis-comercios/{place}/editar',[MerchantPlaceController::class,'edit'])->middleware('verified')->name('merchant.places.edit');
+    Route::put('/mis-comercios/{place}',[MerchantPlaceController::class,'update'])->middleware(['verified','throttle:10,1'])->name('merchant.places.update');
 });
 
 Route::view('/terminos', 'legal.terms')->name('legal.terms');
