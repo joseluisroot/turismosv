@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\PlaceManagementController;
 use App\Http\Controllers\Admin\TaxonomyController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\RankingController;
+use App\Http\Controllers\Admin\FounderCatalogController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -45,6 +46,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::prefix('administracion')->name('admin.')->middleware(['auth','verified','admin'])->group(function(){
+    Route::get('/catalogo-fundador',[FounderCatalogController::class,'index'])->name('founder.index');
+    Route::put('/catalogo-fundador/{place}',[FounderCatalogController::class,'update'])->name('founder.update');
     Route::get('/lugares',[PlaceManagementController::class,'index'])->name('places.index');
     Route::get('/lugares/crear',[PlaceManagementController::class,'create'])->name('places.create');
     Route::post('/lugares',[PlaceManagementController::class,'store'])->name('places.store');
