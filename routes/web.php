@@ -7,6 +7,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\QrCheckInController;
 use App\Http\Controllers\PassportController;
+use App\Http\Controllers\AchievementCardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -30,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/verificar-correo/reenviar', [AuthController::class, 'resend'])->middleware('throttle:6,1')->name('verification.send');
     Route::get('/mi-perfil', [AuthController::class, 'profile'])->middleware('verified')->name('profile');
     Route::get('/mi-pasaporte',[PassportController::class,'show'])->middleware('verified')->name('passport.show');
+    Route::get('/mi-pasaporte/logros/{achievement}',[AchievementCardController::class,'show'])->middleware('verified')->name('passport.achievements.card');
 });
 
 Route::view('/terminos', 'legal.terms')->name('legal.terms');
