@@ -16,6 +16,8 @@ use App\Http\Controllers\ContentReportController;
 use App\Http\Controllers\Admin\ModerationController;
 use App\Http\Controllers\BusinessClaimController;
 use App\Http\Controllers\MerchantPlaceController;
+use App\Http\Controllers\Admin\PlaceManagementController;
+use App\Http\Controllers\Admin\TaxonomyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -39,6 +41,15 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::prefix('administracion')->name('admin.')->middleware(['auth','verified','admin'])->group(function(){
+    Route::get('/lugares',[PlaceManagementController::class,'index'])->name('places.index');
+    Route::get('/lugares/crear',[PlaceManagementController::class,'create'])->name('places.create');
+    Route::post('/lugares',[PlaceManagementController::class,'store'])->name('places.store');
+    Route::get('/lugares/{place}/editar',[PlaceManagementController::class,'edit'])->name('places.edit');
+    Route::put('/lugares/{place}',[PlaceManagementController::class,'update'])->name('places.update');
+    Route::post('/categorias',[TaxonomyController::class,'category'])->name('categories.store');
+    Route::put('/categorias/{category}',[TaxonomyController::class,'updateCategory'])->name('categories.update');
+    Route::post('/departamentos',[TaxonomyController::class,'department'])->name('departments.store');
+    Route::put('/departamentos/{department}',[TaxonomyController::class,'updateDepartment'])->name('departments.update');
     Route::get('/moderacion',[ModerationController::class,'index'])->name('moderation.index');
     Route::get('/moderacion/fotos/{photo}/vista',[ModerationController::class,'photoPreview'])->name('moderation.photos.preview');
     Route::put('/moderacion/fotos/{photo}',[ModerationController::class,'photo'])->name('moderation.photos.update');

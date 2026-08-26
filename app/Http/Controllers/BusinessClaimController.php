@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\File;
 class BusinessClaimController extends Controller {
     public function store(Request $request,Place $place): RedirectResponse {
+        abort_unless($place->publication_status==='published',404);
         $validated=$request->validate(['relationship_role'=>['required','string','max:80'],'business_email'=>['required','email:rfc','max:191'],'business_phone'=>['required','string','max:30'],'evidence_note'=>['required','string','min:30','max:500'],'verification_document'=>['required',File::types(['pdf','jpg','jpeg','png'])->max('5mb')],'business_declaration'=>['accepted']],['business_declaration.accepted'=>'Debes confirmar tu relación con el comercio y la autenticidad de la evidencia.']);
         $existing=BusinessClaim::query()->whereBelongsTo($request->user())->whereBelongsTo($place)->first();if($existing?->status==='approved')return back()->withErrors(['claim'=>'Ya administras esta ficha.']);if($existing?->status==='pending')return back()->withErrors(['claim'=>'Ya tienes una solicitud pendiente para este lugar.']);
         $file=$validated['verification_document'];$publicId=(string)Str::uuid();$path=$file->storeAs("business-claims/{$place->id}","{$publicId}.{$file->extension()}",'local');if(!$path)return back()->withErrors(['verification_document'=>'No pudimos guardar la evidencia.']);

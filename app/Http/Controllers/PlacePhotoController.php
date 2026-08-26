@@ -11,6 +11,7 @@ use Illuminate\Validation\Rules\File;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class PlacePhotoController extends Controller {
     public function store(Request $request,Place $place): RedirectResponse {
+        abort_unless($place->publication_status==='published',404);
         if(PlacePhoto::query()->whereBelongsTo($request->user())->where('status','pending')->count()>=10)return back()->withErrors(['photo'=>'Tienes diez fotografías pendientes. Espera su revisión antes de enviar más.'])->withFragment('fotos');
         $validated=$request->validate(['photo'=>['required',File::image()->types(['jpg','jpeg','png','webp'])->max('5mb')->dimensions(Rule::dimensions()->minWidth(600)->minHeight(400)->maxWidth(8000)->maxHeight(8000))],'alt_text'=>['nullable','string','max:160'],'photo_rights'=>['accepted'],'photo_license'=>['accepted']],['photo_rights.accepted'=>'Debes confirmar que la fotografía es tuya o que tienes autorización para compartirla.','photo_license.accepted'=>'Debes aceptar la licencia de exhibición para enviar la fotografía.']);
         $file=$validated['photo'];$publicId=(string)Str::uuid();$extension=$file->extension();$path=$file->storeAs("community-photos/{$place->id}","{$publicId}.{$extension}",'local');
@@ -19,7 +20,7 @@ class PlacePhotoController extends Controller {
         return back()->with('photo_status','Recibimos tu fotografía. Permanecerá privada hasta completar la moderación.')->withFragment('fotos');
     }
     public function show(string $publicId): BinaryFileResponse {
-        $photo=PlacePhoto::query()->where('public_id',$publicId)->where('status','approved')->firstOrFail();abort_unless(Storage::disk('local')->exists($photo->storage_path),404);
+        $photo=PlacePhoto::query()->where('public_id',$publicId)->where('status','approved')->whereHas('place',fn($query)=>$query->where('publication_status','published'))->firstOrFail();abort_unless(Storage::disk('local')->exists($photo->storage_path),404);
         return response()->file(Storage::disk('local')->path($photo->storage_path),['Content-Type'=>$photo->mime_type,'Cache-Control'=>'public, max-age=86400','X-Content-Type-Options'=>'nosniff']);
     }
 }

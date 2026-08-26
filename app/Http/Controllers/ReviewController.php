@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class ReviewController extends Controller {
     public function store(Request $request, Place $place): RedirectResponse {
+        abort_unless($place->publication_status==='published',404);
         $validated = $request->validate([
             'rating' => ['required', 'integer', 'between:1,5'], 'title' => ['required', 'string', 'min:4', 'max:120'],
             'body' => ['required', 'string', 'min:30', 'max:2000'], 'visited_at' => ['nullable', 'date', 'before_or_equal:today'], 'community_rules' => ['accepted'],
