@@ -137,7 +137,7 @@
 
         <section class="founder-cta">
             <div><p class="eyebrow">Comercios y destinos</p><h2>Forma parte del catálogo fundador.</h2><p>Verifica tu lugar, comparte información autorizada y ayúdanos a construir una referencia turística para todo El Salvador.</p></div>
-            <button class="primary-button" type="button">Quiero participar <span>→</span></button>
+            <a class="primary-button" href="{{ route('founder-program.show') }}">Quiero participar <span>→</span></a>
         </section>
     </main>
 
