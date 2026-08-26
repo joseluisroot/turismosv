@@ -124,6 +124,12 @@ class AuthController extends Controller
 
     public function profile(): View
     {
-        return view('profile.show');
+        $user = request()->user()->load(['checkIns' => fn ($query) => $query->with('place:id,name,slug')->latest('visited_on')->limit(10)]);
+        $user->loadCount([
+            'checkIns as verified_check_ins_count' => fn ($query) => $query->where('status', 'verified'),
+            'checkIns as pending_check_ins_count' => fn ($query) => $query->where('status', 'pending'),
+        ]);
+
+        return view('profile.show', compact('user'));
     }
 }
