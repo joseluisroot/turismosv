@@ -27,11 +27,14 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\SeoController;
 use App\Http\Controllers\Admin\AnalyticsController;
+use App\Http\Controllers\Admin\SponsorshipController;
+use App\Http\Controllers\SponsorshipClickController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 Route::get('/sitemap.xml',[SeoController::class,'sitemap'])->name('seo.sitemap');
 Route::get('/robots.txt',[SeoController::class,'robots'])->name('seo.robots');
+Route::get('/patrocinado/{campaign}',SponsorshipClickController::class)->middleware('throttle:30,1')->name('sponsorships.click');
 Route::get('/explorar',ExploreController::class)->name('explore');
 Route::get('/rankings/{category?}',RankingController::class)->name('rankings.index');
 Route::get('/postal-de-la-semana',[WeeklyPostcardController::class,'index'])->name('postcards.index');
@@ -60,6 +63,8 @@ Route::middleware('guest')->group(function(){Route::get('/acceso-social/consenti
 Route::prefix('administracion')->name('admin.')->middleware(['auth','verified','admin'])->group(function(){
     Route::get('/',DashboardController::class)->name('dashboard');
     Route::get('/analitica',AnalyticsController::class)->name('analytics');
+    Route::get('/patrocinios',[SponsorshipController::class,'index'])->name('sponsorships.index');
+    Route::post('/patrocinios',[SponsorshipController::class,'store'])->name('sponsorships.store');
     Route::get('/catalogo-fundador',[FounderCatalogController::class,'index'])->name('founder.index');
     Route::put('/catalogo-fundador/{place}',[FounderCatalogController::class,'update'])->name('founder.update');
     Route::post('/postal-de-la-semana/seleccionar',[AdminWeeklyPostcardController::class,'select'])->name('postcards.select');
