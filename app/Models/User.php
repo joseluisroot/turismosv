@@ -34,7 +34,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'terms_accepted_at',
         'terms_version',
         'points_balance',
-        'public_profile_id','is_profile_public','public_name_mode','public_alias','show_public_achievements','show_public_stamps','public_profile_updated_at',
+        'public_profile_id','is_profile_public','public_name_mode','public_alias','show_public_achievements','show_public_stamps','public_profile_updated_at','interests_selected_at',
     ];
 
     /**
@@ -59,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
             'terms_accepted_at' => 'datetime',
             'points_balance' => 'integer',
-            'is_profile_public' => 'boolean','show_public_achievements' => 'boolean','show_public_stamps' => 'boolean','public_profile_updated_at' => 'datetime',
+            'is_profile_public' => 'boolean','show_public_achievements' => 'boolean','show_public_stamps' => 'boolean','public_profile_updated_at' => 'datetime','interests_selected_at'=>'datetime',
         ];
     }
 
@@ -80,4 +80,5 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function achievements(): BelongsToMany { return $this->belongsToMany(Achievement::class,'user_achievements')->withPivot(['passport_stamp_id','earned_at'])->withTimestamps(); }
     public function pointTransactions(): HasMany { return $this->hasMany(PointTransaction::class); }
+    public function interests(): BelongsToMany { return $this->belongsToMany(Interest::class)->withTimestamps(); }
 }
