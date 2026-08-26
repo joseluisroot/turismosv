@@ -46,4 +46,6 @@ class Place extends Model
     {
         return $this->hasMany(CheckIn::class);
     }
+
+    public function photos(): HasMany { return $this->hasMany(PlacePhoto::class); }
 }
