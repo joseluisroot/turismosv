@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ $place->summary }}">
+    <link rel="canonical" href="{{ route('places.show',$place) }}"><meta property="og:type" content="article"><meta property="og:title" content="{{ $place->name }}"><meta property="og:description" content="{{ $place->summary }}"><meta property="og:url" content="{{ route('places.show',$place) }}"><meta name="twitter:card" content="summary">
     <title>{{ $place->name }} — TurismoSV</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script type="application/ld+json">{!! json_encode(array_filter(['@context'=>'https://schema.org','@type'=>'TouristAttraction','name'=>$place->name,'description'=>$place->summary,'url'=>route('places.show',$place),'address'=>['@type'=>'PostalAddress','addressLocality'=>$place->municipality,'addressRegion'=>$place->department->name,'addressCountry'=>'SV'],'aggregateRating'=>$place->rating_average&&$place->reviews_count?['@type'=>'AggregateRating','ratingValue'=>(float)$place->rating_average,'reviewCount'=>$place->reviews_count]:null]),JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!}</script>
 </head>
 <body>
 <header class="place-header"><a href="{{ route('home') }}"><img src="{{ asset('brand/logo-turismosv.svg') }}" alt="TurismoSV"></a><nav><a href="{{ route('home') }}#lugares">Explorar lugares</a>@auth<a href="{{ route('profile') }}">Mi perfil</a>@else<a href="{{ route('login') }}">Ingresar</a>@endauth</nav></header>

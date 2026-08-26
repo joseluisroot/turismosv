@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Descubre lugares verificados, experiencias auténticas y rutas para recorrer El Salvador.">
+    <link rel="canonical" href="{{ route('home') }}"><meta property="og:type" content="website"><meta property="og:site_name" content="TurismoSV"><meta property="og:title" content="Descubre El Salvador con confianza"><meta property="og:description" content="Lugares, experiencias comunitarias y un pasaporte digital para recorrer El Salvador."><meta property="og:url" content="{{ route('home') }}"><meta name="twitter:card" content="summary">
     <title>TurismoSV — Descubre El Salvador con confianza</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script type="application/ld+json">{!! json_encode(['@context'=>'https://schema.org','@type'=>'WebSite','name'=>'TurismoSV','url'=>route('home'),'potentialAction'=>['@type'=>'SearchAction','target'=>route('explore').'?q={search_term_string}','query-input'=>'required name=search_term_string']],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!}</script>
 </head>
 <body>
     <header class="site-header">

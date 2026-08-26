@@ -1,0 +1,2 @@
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">@foreach([route('home'),route('explore'),route('rankings.index'),route('postcards.index')] as $url)<url><loc>{{ $url }}</loc><changefreq>weekly</changefreq></url>@endforeach @foreach($places as $place)<url><loc>{{ route('places.show',$place) }}</loc><lastmod>{{ $place->updated_at->toAtomString() }}</lastmod><changefreq>weekly</changefreq></url>@endforeach</urlset>
