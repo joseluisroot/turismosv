@@ -51,3 +51,18 @@ npm run build
 
 Consulta [docs/PRODUCTO.md](docs/PRODUCTO.md) y
 [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) para las decisiones iniciales.
+
+## Produccion en HostGator
+
+La configuracion de produccion se documenta en
+[docs/DESPLIEGUE_HOSTGATOR.md](docs/DESPLIEGUE_HOSTGATOR.md). Usa
+`.env.production.example` como lista de variables, sin guardar credenciales en
+Git. Antes de abrir el sitio al publico ejecuta:
+
+```bash
+php artisan turismosv:production-check
+```
+
+El comando devuelve un error mientras falte cualquier requisito critico de
+seguridad, base de datos, correo, identidad legal, permisos o recursos
+compilados.
