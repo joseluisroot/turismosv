@@ -66,3 +66,7 @@ php artisan turismosv:production-check
 El comando devuelve un error mientras falte cualquier requisito critico de
 seguridad, base de datos, correo, identidad legal, permisos o recursos
 compilados.
+
+La preparación editorial y operativa se administra en
+`/administracion/lanzamiento`. Consulta el protocolo gradual y las primeras 72
+horas en [docs/LANZAMIENTO_PUBLICO.md](docs/LANZAMIENTO_PUBLICO.md).

@@ -6,6 +6,7 @@ use App\Models\Achievement;
 use App\Models\Category;
 use App\Models\Department;
 use App\Models\Interest;
+use App\Models\LaunchChecklistItem;
 use App\Models\Place;
 use Illuminate\Database\Seeder;
 
@@ -16,11 +17,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        collect(config('launch.checklist'))->each(function (array $item, string $key): void {
+            LaunchChecklistItem::query()->updateOrCreate(
+                ['key' => $key],
+                ['label' => $item['label'], 'area' => $item['area'], 'is_required' => $item['required']],
+            );
+        });
+
         collect([
-            ['code'=>'primer-sello','name'=>'Explorador inicial','description'=>'Consigue tu primera visita verificada.','icon'=>'✦','criteria_type'=>'verified_places','threshold'=>1,'points_reward'=>50],
-            ['code'=>'ruta-en-marcha','name'=>'Ruta en marcha','description'=>'Visita tres lugares diferentes.','icon'=>'➜','criteria_type'=>'verified_places','threshold'=>3,'points_reward'=>100],
-            ['code'=>'cruza-departamentos','name'=>'Cruza departamentos','description'=>'Registra visitas en dos departamentos.','icon'=>'◇','criteria_type'=>'verified_departments','threshold'=>2,'points_reward'=>150],
-        ])->each(fn(array $data)=>Achievement::query()->updateOrCreate(['code'=>$data['code']],$data+['is_active'=>true]));
+            ['code' => 'primer-sello', 'name' => 'Explorador inicial', 'description' => 'Consigue tu primera visita verificada.', 'icon' => '✦', 'criteria_type' => 'verified_places', 'threshold' => 1, 'points_reward' => 50],
+            ['code' => 'ruta-en-marcha', 'name' => 'Ruta en marcha', 'description' => 'Visita tres lugares diferentes.', 'icon' => '➜', 'criteria_type' => 'verified_places', 'threshold' => 3, 'points_reward' => 100],
+            ['code' => 'cruza-departamentos', 'name' => 'Cruza departamentos', 'description' => 'Registra visitas en dos departamentos.', 'icon' => '◇', 'criteria_type' => 'verified_departments', 'threshold' => 2, 'points_reward' => 150],
+        ])->each(fn (array $data) => Achievement::query()->updateOrCreate(['code' => $data['code']], $data + ['is_active' => true]));
 
         $departments = collect([
             ['name' => 'Ahuachapán', 'slug' => 'ahuachapan'],
@@ -38,8 +46,8 @@ class DatabaseSeeder extends Seeder
         ])->mapWithKeys(fn (array $data) => [$data['slug'] => Category::query()->updateOrCreate(['slug' => $data['slug']], $data)]);
 
         collect([
-            ['name'=>'Playas y surf','slug'=>'playas-surf','icon'=>'≈','description'=>'Olas, arena y atardeceres frente al Pacífico.','category'=>'playas'],['name'=>'Montañas y senderismo','slug'=>'montanas-senderismo','icon'=>'△','description'=>'Cumbres, volcanes, caminos y aire libre.','category'=>'montana'],['name'=>'Pueblos y cultura','slug'=>'pueblos-cultura','icon'=>'◇','description'=>'Tradiciones, artesanía, historia y comunidades.','category'=>'pueblos'],['name'=>'Gastronomía','slug'=>'gastronomia-local','icon'=>'○','description'=>'Sabores salvadoreños y experiencias culinarias.','category'=>'gastronomia'],['name'=>'Naturaleza','slug'=>'naturaleza','icon'=>'✦','description'=>'Paisajes, reservas y biodiversidad.','category'=>'montana'],['name'=>'Historia y arquitectura','slug'=>'historia-arquitectura','icon'=>'▦','description'=>'Memoria, patrimonio, plazas y edificios.','category'=>'pueblos'],['name'=>'Turismo familiar','slug'=>'turismo-familiar','icon'=>'♡','description'=>'Planes para disfrutar juntos y con tranquilidad.','category'=>null],['name'=>'Aventura','slug'=>'aventura','icon'=>'➜','description'=>'Experiencias activas y nuevos desafíos.','category'=>null],
-        ])->each(fn(array $data,int $index)=>Interest::query()->updateOrCreate(['slug'=>$data['slug']],['category_id'=>$data['category']?$categories[$data['category']]->id:null,'name'=>$data['name'],'icon'=>$data['icon'],'description'=>$data['description'],'sort_order'=>$index+1,'is_active'=>true]));
+            ['name' => 'Playas y surf', 'slug' => 'playas-surf', 'icon' => '≈', 'description' => 'Olas, arena y atardeceres frente al Pacífico.', 'category' => 'playas'], ['name' => 'Montañas y senderismo', 'slug' => 'montanas-senderismo', 'icon' => '△', 'description' => 'Cumbres, volcanes, caminos y aire libre.', 'category' => 'montana'], ['name' => 'Pueblos y cultura', 'slug' => 'pueblos-cultura', 'icon' => '◇', 'description' => 'Tradiciones, artesanía, historia y comunidades.', 'category' => 'pueblos'], ['name' => 'Gastronomía', 'slug' => 'gastronomia-local', 'icon' => '○', 'description' => 'Sabores salvadoreños y experiencias culinarias.', 'category' => 'gastronomia'], ['name' => 'Naturaleza', 'slug' => 'naturaleza', 'icon' => '✦', 'description' => 'Paisajes, reservas y biodiversidad.', 'category' => 'montana'], ['name' => 'Historia y arquitectura', 'slug' => 'historia-arquitectura', 'icon' => '▦', 'description' => 'Memoria, patrimonio, plazas y edificios.', 'category' => 'pueblos'], ['name' => 'Turismo familiar', 'slug' => 'turismo-familiar', 'icon' => '♡', 'description' => 'Planes para disfrutar juntos y con tranquilidad.', 'category' => null], ['name' => 'Aventura', 'slug' => 'aventura', 'icon' => '➜', 'description' => 'Experiencias activas y nuevos desafíos.', 'category' => null],
+        ])->each(fn (array $data, int $index) => Interest::query()->updateOrCreate(['slug' => $data['slug']], ['category_id' => $data['category'] ? $categories[$data['category']]->id : null, 'name' => $data['name'], 'icon' => $data['icon'], 'description' => $data['description'], 'sort_order' => $index + 1, 'is_active' => true]));
 
         $places = [
             ['name' => 'El Tunco', 'slug' => 'el-tunco', 'summary' => 'Una puerta al Pacífico salvadoreño, reconocida por su ambiente costero y cultura de surf.', 'municipality' => 'Tamanique', 'department' => 'la-libertad', 'category' => 'playas', 'status' => 'community_confirmed', 'score' => 76, 'rating' => 4.7, 'reviews' => 128, 'visits' => 342],
