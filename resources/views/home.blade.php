@@ -10,6 +10,7 @@
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script type="application/ld+json">{!! json_encode(['@context'=>'https://schema.org','@type'=>'WebSite','name'=>'TurismoSV','url'=>route('home'),'potentialAction'=>['@type'=>'SearchAction','target'=>route('explore').'?q={search_term_string}','query-input'=>'required name=search_term_string']],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!}</script>
+<x-analytics />
 </head>
 <body>
     <header class="site-header">

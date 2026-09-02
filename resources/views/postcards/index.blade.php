@@ -1,4 +1,5 @@
 <!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Postal de la semana — TurismoSV</title><link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">@vite(['resources/css/app.css','resources/js/app.js'])<x-social-meta title="Postal de la semana — TurismoSV" description="Descubre El Salvador a través de las fotografías de nuestra comunidad viajera." />
+<x-analytics />
 </head><body class="postcard-page">
 <header class="place-header"><a href="{{ route('home') }}"><img src="{{ asset('brand/logo-turismosv.svg') }}" alt="TurismoSV"></a><nav><a href="{{ route('explore') }}">Explorar</a><a href="{{ route('rankings.index') }}">Rankings</a>@auth<a href="{{ route('profile') }}">Mi perfil</a>@endauth</nav></header>
 <main class="postcard-shell"><section class="postcard-hero"><p class="eyebrow">Concurso comunitario</p><h1>Una mirada de El Salvador, elegida por la comunidad.</h1><p>Participan únicamente fotografías aprobadas y con autorización de exhibición. Cada cuenta verificada dispone de un voto semanal y no puede votar por su propia imagen.</p></section>

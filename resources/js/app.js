@@ -1,9 +1,5 @@
 import './bootstrap';
 
-if (!localStorage.getItem('turismosv_cookie_notice')) {
-    const notice=document.createElement('aside');notice.className='cookie-notice';notice.setAttribute('role','dialog');notice.setAttribute('aria-label','Aviso de cookies');notice.innerHTML='<div><strong>Cookies necesarias</strong><p>Usamos únicamente tecnologías esenciales para la sesión y seguridad. No hay publicidad ni analítica opcional activa.</p></div><a href="/cookies">Ver política</a><button type="button">Entendido</button>';document.body.appendChild(notice);notice.querySelector('button').addEventListener('click',()=>{localStorage.setItem('turismosv_cookie_notice','2026-08-26');notice.remove();});
-}
-
 document.querySelectorAll('[data-review-form]').forEach((form) => {
     const confirmation = form.querySelector('[data-review-confirmation]');
     const submit = form.querySelector('[data-review-submit]');

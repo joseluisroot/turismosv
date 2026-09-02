@@ -7,6 +7,7 @@
     <title>Lanzamiento — TurismoSV</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css','resources/js/app.js'])
+<x-analytics />
 </head>
 <body class="admin-dashboard-page">
 <header class="place-header"><a href="{{ route('home') }}"><img src="{{ asset('brand/logo-turismosv.svg') }}" alt="TurismoSV"></a><nav><a href="{{ route('admin.dashboard') }}">Panel</a><a href="{{ route('admin.prelaunch.index') }}">Prelanzamiento</a><a href="{{ route('home') }}">Ver sitio</a></nav></header>

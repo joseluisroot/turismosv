@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Mi pasaporte — TurismoSV</title><link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">@vite(['resources/css/app.css','resources/js/app.js'])</head><body class="passport-page">
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Mi pasaporte — TurismoSV</title><link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">@vite(['resources/css/app.css','resources/js/app.js'])<x-analytics />
+</head><body class="passport-page">
 <header class="place-header"><a href="{{ route('home') }}"><img src="{{ asset('brand/logo-turismosv.svg') }}" alt="TurismoSV"></a><nav><a href="{{ route('home') }}#lugares">Explorar</a><a href="{{ route('profile') }}">Mi perfil</a></nav></header>
 <main class="digital-passport">
 @if(session('status'))<div class="status-message">{{ session('status') }}</div>@endif
