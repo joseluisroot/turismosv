@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Descubre lugares verificados, experiencias auténticas y rutas para recorrer El Salvador.">
-    <link rel="canonical" href="{{ route('home') }}"><meta property="og:type" content="website"><meta property="og:site_name" content="TurismoSV"><meta property="og:title" content="Descubre El Salvador con confianza"><meta property="og:description" content="Lugares, experiencias comunitarias y un pasaporte digital para recorrer El Salvador."><meta property="og:url" content="{{ route('home') }}"><meta name="twitter:card" content="summary">
+    <link rel="canonical" href="{{ route('home') }}">
+    <x-social-meta title="TurismoSV — Descubre El Salvador con confianza" :url="route('home')" />
     <title>TurismoSV — Descubre El Salvador con confianza</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])

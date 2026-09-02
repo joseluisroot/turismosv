@@ -7,6 +7,7 @@
     <title>@yield('title') — TurismoSV</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+<x-social-meta />
 </head>
 <body class="account-page">
     <header class="account-header"><a href="{{ route('home') }}"><img src="{{ asset('brand/logo-turismosv.svg') }}" alt="TurismoSV — El Salvador lo descubres tú"></a></header>

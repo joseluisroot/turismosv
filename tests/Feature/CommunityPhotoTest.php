@@ -21,7 +21,7 @@ class CommunityPhotoTest extends TestCase {
     public function test_only_approved_existing_photo_is_public_and_rendered_on_place(): void {
         Storage::fake('local');$this->seed();$user=User::factory()->create();$place=Place::first();$file=UploadedFile::fake()->image('vista.jpg',1200,800);$path=$file->storeAs("community-photos/{$place->id}",'approved.jpg','local');
         $photo=PlacePhoto::create(['public_id'=>(string)\Illuminate\Support\Str::uuid(),'place_id'=>$place->id,'user_id'=>$user->id,'storage_path'=>$path,'original_name'=>'vista.jpg','mime_type'=>'image/jpeg','file_size'=>$file->getSize(),'alt_text'=>'Vista aprobada','status'=>'approved','license_version'=>'community-photo-2026-08','rights_confirmed_at'=>now(),'moderated_at'=>now()]);
-        $this->get(route('photos.show',$photo->public_id))->assertOk()->assertHeader('content-type','image/jpeg');$this->get(route('places.show',$place))->assertOk()->assertSee('Vista aprobada')->assertSee('Uso autorizado');
+        $this->get(route('photos.show',$photo->public_id))->assertOk()->assertHeader('content-type','image/jpeg');$this->get(route('places.show',$place))->assertOk()->assertSee('property="og:image" content="'.route('photos.show',$photo->public_id).'"',false)->assertSee('Vista aprobada')->assertSee('Uso autorizado');
     }
     public function test_unverified_user_cannot_upload_photo(): void {
         Storage::fake('local');$this->seed();$user=User::factory()->unverified()->create();$place=Place::first();$this->actingAs($user)->post(route('photos.store',$place),[])->assertRedirect(route('verification.notice'));

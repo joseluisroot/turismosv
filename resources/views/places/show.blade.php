@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ $place->summary }}">
-    <link rel="canonical" href="{{ route('places.show',$place) }}"><meta property="og:type" content="article"><meta property="og:title" content="{{ $place->name }}"><meta property="og:description" content="{{ $place->summary }}"><meta property="og:url" content="{{ route('places.show',$place) }}"><meta name="twitter:card" content="summary">
+    <link rel="canonical" href="{{ route('places.show',$place) }}">name }}">summary }}">
+    <x-social-meta :title="$place->name.' — TurismoSV'" :description="$place->summary" :url="route('places.show', $place)" :image="$place->photos->first() ? route('photos.show', $place->photos->first()->public_id) : null" :image-alt="$place->photos->first()?->alt_text ?: 'TurismoSV — '.$place->name" :image-type="$place->photos->first()?->mime_type" type="article" />
     <title>{{ $place->name }} — TurismoSV</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
